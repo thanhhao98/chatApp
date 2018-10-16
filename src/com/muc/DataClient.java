@@ -26,7 +26,7 @@ public class DataClient {
         return null;
     }
 
-    public boolean checkLogin(DataClient client){
+    public boolean checkUserExist(){
         return true;
     }
 
@@ -54,6 +54,10 @@ public class DataClient {
 
     public String getId(){
         return this.id;
+    }
+
+    public boolean equals(DataClient client){
+        return this.username == client.username;
     }
 
 
