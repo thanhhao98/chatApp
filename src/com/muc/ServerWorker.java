@@ -35,35 +35,72 @@ public class ServerWorker extends Thread {
             if (tokens!=null && tokens.length >0) {
                 String cmd = tokens[0];
                 if ("quit".equalsIgnoreCase(cmd)) {
-                    handleLogout();
+                    if(this.login){
+                        handleLogout();
+                    } else {
+                        this.clientSocket.close();
+                    }
                 } else if ("login".equalsIgnoreCase(cmd)){
-                    handleLogin(this.outputStream, tokens);
-                } else if("listOnline".equalsIgnoreCase(cmd)) {
-                    handleListOnline();
+                    handleLogin(tokens);
+                } else if(this.login){
+                    if("listOnline".equalsIgnoreCase(cmd)) {
+                        handleListOnline();
+                    } else if("send".equalsIgnoreCase(cmd)){
+                        try {
+                            String body = line.split("\\s", 3)[2];
+                            handleSendMessage(tokens[1], body);
+                        } finally {
+                            this.sendErrorMessage();
+                        }
+                    } else {
+                        this.sendErrorMessage();
+                    }
                 } else {
-                    String msg = "Unknown type: " + line + "\n";
-                    this.outputStream.write(msg.getBytes());
+                    this.sendErrorMessage();
                 }
             }
         }
         this.clientSocket.close();
     }
 
+    private void sendErrorMessage() throws IOException {
+        this.send("error\n");
+    }
+
+    private void sendSuccessMessage() throws IOException{
+        this.send("successfully\n");
+    }
+
+    private void handleSendMessage(String usernameRev, String body) throws IOException {
+        boolean sendSuccess = false;
+        DataClient revClient = new DataClient(usernameRev,null);
+        ArrayList<ServerWorker> workerList = getWorkerList();
+        String msg = this.client.getUsername() + " send " + body + '\n';
+        for (ServerWorker worker: workerList){
+            if(!revClient.equals(this.getClient()) && revClient.equals(worker.getClient())){
+                worker.send(msg);
+                this.sendSuccessMessage();
+                sendSuccess = true;
+            }
+        }
+        if(!sendSuccess){
+            this.sendErrorMessage();
+        }
+    }
+
     private void handleListOnline() throws IOException {
         ArrayList<ServerWorker> workerList = getWorkerList();
-        for(ServerWorker worker: workerList ){
-            String onlMsg2 = "Online " + worker.client.getUsername() + "\n";
-            this.send(onlMsg2);
+        ArrayList<String> listUserOnline = new ArrayList<>();
+        for(ServerWorker worker: workerList ) {
+            listUserOnline.add(worker.client.getUsername());
         }
+        String onlMsg2 = "listonline [" + String.join(",",listUserOnline) + "]\n";
+        this.send(onlMsg2);
     }
 
     private void handleLogout() throws IOException {
         ArrayList<ServerWorker> workerList = getWorkerList();
-        this.send("You are logout\n");
-        for (ServerWorker worker: workerList){
-            String logoutMsg = "Offline " + this.client.getUsername() + "\n";
-            worker.send(logoutMsg);
-        }
+        this.sendSuccessMessage();
         this.server.removeWorker(this);
         this.clientSocket.close();
     }
@@ -72,28 +109,30 @@ public class ServerWorker extends Thread {
         return this.server.getWorkerList();
     }
 
-    private void handleLogin(OutputStream outputStream, String[] tokens) throws IOException {
-        String msg = null;
+    private void handleLogin(String[] tokens) throws IOException {
         if(tokens.length==3){
             this.client = new DataClient(tokens[1],tokens[2]);
             if(this.client.checkUserExist()){
                 this.login = true;
                 ArrayList<ServerWorker> listWorker = getWorkerList();
                 for(ServerWorker worker: listWorker){
-                    if(this.client.equals(worker)){
+                    System.out.println(worker.client.getUsername());
+                    if(this.client.equals(worker.getClient())){
                         worker.handleLogout();
                     }
                 }
                 this.server.addListWorker(this);
-                msg = "Longin ok\n";
+                this.sendSuccessMessage();
             } else {
-                msg = "Error login\n";
+                this.sendErrorMessage();
             }
         } else {
-            msg = "Error login\n";
+            this.sendErrorMessage();
         }
-        outputStream.write((msg.getBytes()));
+    }
 
+    public DataClient getClient(){
+        return this.client;
     }
 
     private void send(String msg) throws IOException {

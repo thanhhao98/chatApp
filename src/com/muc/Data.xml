@@ -2,4 +2,6 @@
 <data>
     <user><id>000</id><username>admin</username><password>admin</password></user>
     <user><id>001</id><username>root</username><password>toor</password></user>
+    <user><id>002</id><username>thanhhao</username><password>977463</password></user>
+    <user><id>003</id><username>quangnghia</username><password>1612221</password></user>
 </data>

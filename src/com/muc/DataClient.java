@@ -3,6 +3,7 @@ package com.muc;
 import java.util.ArrayList;
 
 import java.io.*;
+import javax.xml.crypto.Data;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -13,15 +14,15 @@ import org.w3c.dom.*;
 
 public class DataClient {
     // setup path of datafile
-    private final static String pathDataFile = "Data.xml";
+    private final static String pathDataFile = "src/com/muc/Data.xml";
     private String username=null;
     private String password=null;
     private String id=null;
 
-//    public DataClient(String username, String password){
-//        this.username = username;
-//        this.password = password;
-//    }
+    public DataClient(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
 
     public DataClient(String id, String username, String password) {
         this.id = id;
@@ -58,33 +59,20 @@ public class DataClient {
         return ret_val;
     }
 
-    public boolean checkUserExist(DataClient client){
-        try{
-            File fXmlFile = new File(pathDataFile);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
-            doc.getDocumentElement().normalize();
-
-            NodeList nList = doc.getElementsByTagName("user");
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    String username = getTagValue("username", eElement);
-                    if (client.getUsername().equals(username)) return true;
+    public boolean checkUserExist(){
+        if(this.checkInfo()) {
+            ArrayList<DataClient> listClient = getDataFromDataBase();
+            for(DataClient client: listClient){
+                if(client.getUsername().equals(this.username)&&client.getPassword().equals(this.password)){
+                    return true;
                 }
             }
-        }
-        catch(Exception ex){
-            System.out.println(ex);
         }
         return false;
     }
 
     // Check info of current client
     public boolean checkInfo(){
-
         return true;
     }
 
@@ -164,17 +152,14 @@ public class DataClient {
         return this.id;
     }
 
-<<<<<<< HEAD
     public boolean equals(DataClient client){
-        return this.username == client.username;
+        return this.username.equals(client.username);
     }
 
 
-=======
     public static String getTagValue(String sTag, Element eElement) {
         NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
         Node nValue = (Node) nlList.item(0);
         return nValue.getNodeValue();
     }
->>>>>>> ffeef95f8274eaaf2b743796b3cd6e14eafb461a
 }
