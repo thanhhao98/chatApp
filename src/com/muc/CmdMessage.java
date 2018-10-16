@@ -24,14 +24,27 @@ public class CmdMessage {
         handleCommand();
     }
 
+    public void makeType1(String username, String password){
+        this.result = new Result(1);
+        this.result.setUsername(username);
+        this.result.setPassword(password);
+        this.validCommand = true;
+    }
+
+    public void makeType2(String username, String message){
+        return ;
+    }
+
     private void handleCommand() {
         switch(tokens[0]){
             case "login":
-                if(tokens.length == 3){
+                if(tokens.length == 3) {
                     this.validCommand = true;
                     this.result = new Result(1);
                     this.result.setUsername(tokens[1]);
                     this.result.setPassword(tokens[2]);
+                } else {
+                    this.validCommand = false;
                 }
             case "send":
                 //// send thanhhao Xin chao ban -> tokens ['send','thanhhao','Xin','chao','ban'] -> fix case nay.
