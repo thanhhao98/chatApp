@@ -3,7 +3,6 @@ package com.muc;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Client {
     private final String serverName;
@@ -40,7 +39,7 @@ public class Client {
         }
     }
 
-    private boolean login(String username, String password) throws IOException {
+    public boolean login(String username, String password) throws IOException {
         String cmd = "login " + username + " " + password;
         this.sendCmd(cmd);
         if(this.respondSuccess()){
@@ -93,21 +92,21 @@ public class Client {
     }
 
 
-    private void sendCmd(String cmd) throws IOException {
+    public void sendCmd(String cmd) throws IOException {
         cmd = cmd + "\n";
         this.serverOut.write(cmd.getBytes());
     }
 
-    private String getRespond() throws IOException {
+    public String getRespond() throws IOException {
         return this.bufferedIn.readLine();
     }
 
-    private  boolean respondSuccess() throws IOException {
+    public  boolean respondSuccess() throws IOException {
         return this.getRespond().equalsIgnoreCase("successfully");
     }
 
 
-    private boolean connect() {
+    public boolean connect() {
         try {
             this.socket = new Socket(this.serverName,this.serverPort);
             System.out.println("Client port is " + this.socket.getLocalPort());
@@ -122,7 +121,7 @@ public class Client {
         return false;
     }
 
-    private void close() throws IOException {
+    public void close() throws IOException {
         this.socket.close();
     }
 

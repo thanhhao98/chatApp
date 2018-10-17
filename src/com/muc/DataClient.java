@@ -42,7 +42,7 @@ public class DataClient {
             NodeList nList = doc.getElementsByTagName("user");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
+                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     String id = getTagValue("id", eElement);
