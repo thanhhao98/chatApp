@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0b72345a-294b-448c-87ff-03134962d564" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chatApp/com/muc/Data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chatApp/com/muc/Data.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chatApp/com/muc/DataClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chatApp/com/muc/DataClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chatApp/com/muc/ServerWorker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/muc/Data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/muc/Data.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/muc/DataClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/muc/DataClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/muc/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/muc/ServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/chatApp/com/muc/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/muc/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/muc/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/muc/ServerWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/muc/ServerWorker.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -31,24 +27,24 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="iml" value="1" />
-          <entry key="java" value="7" />
+          <entry key="java" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="7" />
+          <entry key="JAVA" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="7085" />
+          <entry key="java" value="9066" />
           <entry key="xml" value="42" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="7085" />
+          <entry key="JAVA" value="9066" />
           <entry key="XML" value="42" />
         </counts>
       </usages-collector>
@@ -106,7 +102,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/muc/ServerMain.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
@@ -118,16 +114,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/muc/ServerWorker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="43" column="32" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
+            <state relative-caret-position="415">
+              <caret line="53" column="28" lean-forward="true" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3687#3688#0" expanded="true" />
-                <element signature="e#3737#3738#0" expanded="true" />
-                <element signature="e#4651#4652#0" expanded="true" />
-                <element signature="e#4685#4686#0" expanded="true" />
-                <element signature="e#4828#4829#0" expanded="true" />
-                <element signature="e#4861#4862#0" expanded="true" />
+                <element signature="e#3749#3750#0" expanded="true" />
+                <element signature="e#3799#3800#0" expanded="true" />
+                <element signature="e#4659#4660#0" expanded="true" />
+                <element signature="e#4693#4694#0" expanded="true" />
+                <element signature="e#4836#4837#0" expanded="true" />
+                <element signature="e#4869#4870#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -136,13 +132,41 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/muc/DataClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="154" column="45" selection-start-line="154" selection-start-column="45" selection-end-line="154" selection-end-column="45" />
+            <state relative-caret-position="-388">
+              <caret line="52" column="17" lean-forward="true" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
               <folding>
                 <element signature="e#3199#3200#0" expanded="true" />
                 <element signature="e#3226#3227#0" expanded="true" />
+                <element signature="e#5690#5691#0" expanded="true" />
                 <element signature="e#5750#5751#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/muc/Client.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="118">
+              <caret line="72" column="21" lean-forward="true" selection-start-line="72" selection-start-column="21" selection-end-line="72" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1595#1710#0" expanded="true" />
+                <element signature="e#1709#1710#0" expanded="true" />
+                <element signature="e#3882#3883#0" expanded="true" />
+                <element signature="e#3930#3931#0" expanded="true" />
+                <element signature="e#3996#3997#0" expanded="true" />
+                <element signature="e#4047#4048#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/muc/MessageListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="57" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -162,6 +186,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -171,6 +196,7 @@
       <find>connect</find>
       <find>client</find>
       <find>getClient</find>
+      <find>error</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -180,11 +206,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/com/muc/Server.java" />
-        <option value="$PROJECT_DIR$/src/com/muc/Client.java" />
         <option value="$PROJECT_DIR$/src/com/muc/Data.xml" />
         <option value="$PROJECT_DIR$/src/com/muc/DataClient.java" />
-        <option value="$PROJECT_DIR$/src/com/muc/ServerWorker.java" />
         <option value="$PROJECT_DIR$/src/com/muc/ServerMain.java" />
+        <option value="$PROJECT_DIR$/src/com/muc/UserStatusListener.java" />
+        <option value="$PROJECT_DIR$/src/com/muc/MessageListener.java" />
+        <option value="$PROJECT_DIR$/src/com/muc/ServerWorker.java" />
+        <option value="$PROJECT_DIR$/src/com/muc/Client.java" />
       </list>
     </option>
   </component>
@@ -238,7 +266,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539712335525" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539761576046" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -257,7 +285,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ServerMain">
+  <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.muc.Client" />
       <module name="chatApp" />
@@ -290,8 +318,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ServerMain" />
         <item itemvalue="Application.Client" />
+        <item itemvalue="Application.ServerMain" />
       </list>
     </recent_temporary>
   </component>
@@ -306,12 +334,12 @@
       <option name="presentableId" value="Default" />
       <updated>1539659838499</updated>
       <workItem from="1539659841567" duration="17756000" />
-      <workItem from="1539703934402" duration="6197000" />
+      <workItem from="1539703934402" duration="13614000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24893000" />
+    <option name="totallyTimeSpent" value="32310000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
@@ -364,16 +392,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/muc/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="32" column="31" lean-forward="true" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="423">
@@ -388,18 +406,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/muc/DataClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="154" column="45" selection-start-line="154" selection-start-column="45" selection-end-line="154" selection-end-column="45" />
-          <folding>
-            <element signature="e#3199#3200#0" expanded="true" />
-            <element signature="e#3226#3227#0" expanded="true" />
-            <element signature="e#5750#5751#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/muc/CmdMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-349">
@@ -407,19 +413,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/muc/ServerWorker.java">
+    <entry file="file://$PROJECT_DIR$/src/com/muc/MessageListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="43" column="32" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3687#3688#0" expanded="true" />
-            <element signature="e#3737#3738#0" expanded="true" />
-            <element signature="e#4651#4652#0" expanded="true" />
-            <element signature="e#4685#4686#0" expanded="true" />
-            <element signature="e#4828#4829#0" expanded="true" />
-            <element signature="e#4861#4862#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="45">
+          <caret line="3" column="57" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -430,10 +427,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/muc/ServerWorker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="53" column="28" lean-forward="true" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3749#3750#0" expanded="true" />
+            <element signature="e#3799#3800#0" expanded="true" />
+            <element signature="e#4659#4660#0" expanded="true" />
+            <element signature="e#4693#4694#0" expanded="true" />
+            <element signature="e#4836#4837#0" expanded="true" />
+            <element signature="e#4869#4870#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/muc/ServerMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="61" selection-start-line="7" selection-start-column="61" selection-end-line="7" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/muc/DataClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-388">
+          <caret line="52" column="17" lean-forward="true" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
+          <folding>
+            <element signature="e#3199#3200#0" expanded="true" />
+            <element signature="e#3226#3227#0" expanded="true" />
+            <element signature="e#5690#5691#0" expanded="true" />
+            <element signature="e#5750#5751#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/muc/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="72" column="21" lean-forward="true" selection-start-line="72" selection-start-column="21" selection-end-line="72" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1595#1710#0" expanded="true" />
+            <element signature="e#1709#1710#0" expanded="true" />
+            <element signature="e#3882#3883#0" expanded="true" />
+            <element signature="e#3930#3931#0" expanded="true" />
+            <element signature="e#3996#3997#0" expanded="true" />
+            <element signature="e#4047#4048#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

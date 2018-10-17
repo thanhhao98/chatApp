@@ -50,7 +50,6 @@ public class ServerWorker extends Thread {
                             String body = line.split("\\s", 3)[2];
                             handleSendMessage(tokens[1], body);
                         } finally {
-                            this.sendErrorMessage();
                         }
                     } else {
                         this.sendErrorMessage();
@@ -75,7 +74,7 @@ public class ServerWorker extends Thread {
         boolean sendSuccess = false;
         DataClient revClient = new DataClient(usernameRev,null);
         ArrayList<ServerWorker> workerList = getWorkerList();
-        String msg = this.client.getUsername() + " send " + body + '\n';
+        String msg = "recv " + this.client.getUsername() + " " + body + '\n';
         for (ServerWorker worker: workerList){
             if(!revClient.equals(this.getClient()) && revClient.equals(worker.getClient())){
                 worker.send(msg);
