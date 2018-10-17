@@ -34,15 +34,17 @@ public class ServerWorker extends Thread {
             String[] tokens = line.split("\\s");
             if (tokens!=null && tokens.length >0) {
                 String cmd = tokens[0];
-                if ("quit".equalsIgnoreCase(cmd)) {
-                    if(this.login){
-                        handleLogout();
-                    } else {
+                if(!this.login){
+                    if ("quit".equalsIgnoreCase(cmd)) {
                         this.clientSocket.close();
+                    } else if ("login".equalsIgnoreCase(cmd)) {
+                        handleLogin(tokens);
+                    } else if("register".equalsIgnoreCase(cmd)){
+                            handleRegister(tokens[1],tokens[2]);
+                    } else {
+                        sendErrorMessage();
                     }
-                } else if ("login".equalsIgnoreCase(cmd)){
-                    handleLogin(tokens);
-                } else if(this.login){
+                } else {
                     if("listOnline".equalsIgnoreCase(cmd)) {
                         handleListOnline();
                     } else if("send".equalsIgnoreCase(cmd)){
@@ -51,16 +53,27 @@ public class ServerWorker extends Thread {
                             handleSendMessage(tokens[1], body);
                         } finally {
                         }
+                    } else if("logout".equalsIgnoreCase(cmd)){
+                        this.handleLogout();
                     } else {
-                        this.sendErrorMessage();
+                        sendErrorMessage();
                     }
-                } else {
-                    this.sendErrorMessage();
                 }
             }
         }
         this.clientSocket.close();
     }
+
+    private void handleRegister(String username, String password) throws IOException {
+        this.client = new DataClient("100",username,password);
+        if(this.client.checkUsernameExist()==null){
+            this.client.addDataClient();
+            sendSuccessMessage();
+        } else {
+            sendErrorMessage();
+        }
+    }
+
 
     private void sendErrorMessage() throws IOException {
         this.send("error\n");
@@ -101,7 +114,7 @@ public class ServerWorker extends Thread {
         ArrayList<ServerWorker> workerList = getWorkerList();
         this.sendSuccessMessage();
         this.server.removeWorker(this);
-        this.clientSocket.close();
+        this.login = false;
     }
 
     private ArrayList<ServerWorker> getWorkerList() {

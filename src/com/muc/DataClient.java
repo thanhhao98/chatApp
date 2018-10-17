@@ -59,16 +59,25 @@ public class DataClient {
         return ret_val;
     }
 
-    public boolean checkUserExist(){
+    public DataClient checkUsernameExist(){
         if(this.checkInfo()) {
             ArrayList<DataClient> listClient = getDataFromDataBase();
             for(DataClient client: listClient){
-                if(client.getUsername().equals(this.username)&&client.getPassword().equals(this.password)){
-                    return true;
+                if(client.getUsername().equals(this.username)){
+                    return client;
                 }
             }
         }
-        return false;
+        return null;
+    }
+
+    public boolean checkUserExist(){
+        DataClient client = this.checkUsernameExist();
+        if (client!=null){
+            return this.password.equals(client.getPassword());
+        } else {
+            return false;
+        }
     }
 
     // Check info of current client
@@ -78,6 +87,7 @@ public class DataClient {
 
     // Check -> add data of client to Data
     public boolean addDataClient(){
+        this.fixId();
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -104,6 +114,13 @@ public class DataClient {
             return false;
         }
         return true;
+    }
+
+    private void fixId() {
+        ArrayList<DataClient> listClient = getDataFromDataBase();
+        int numClient = listClient.size();
+        int newId = Integer.parseInt(listClient.get(numClient-1).id)+1;
+        this.id = String.valueOf(newId);
     }
 
     public boolean removeDataClient(){

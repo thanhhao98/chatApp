@@ -8,10 +8,11 @@ Id  detail  example
 ###Client to Server:
 1       login                                       login username password
 2       send msg                                    send username  this is message
-3       recive msg                                  rev username    this is message
+3       recive msg                                  recv username    this is message
 4       get list user active                        get listActive
 5       logut                                       logout
-6
+6       quit                                        quit
+7       register                                    register newusername password
 */
 
 public class CmdMessage {
