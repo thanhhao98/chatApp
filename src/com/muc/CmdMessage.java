@@ -2,6 +2,16 @@ package com.muc;
 
 // Not be used!
 
+
+/*
+
+Tắt session khi chưa logout -> đăng nhập lại lỗi.
+
+
+
+*/
+
+
 /*
 List command
 Id  detail  example

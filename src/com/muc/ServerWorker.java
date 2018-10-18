@@ -47,12 +47,16 @@ public class ServerWorker extends Thread {
                 } else {
                     if("listOnline".equalsIgnoreCase(cmd)) {
                         handleListOnline();
-                    } else if("send".equalsIgnoreCase(cmd)){
+                    } else if("send".equalsIgnoreCase(cmd)) {
                         try {
                             String body = line.split("\\s", 3)[2];
                             handleSendMessage(tokens[1], body);
                         } finally {
                         }
+                    } else if("filesend".equalsIgnoreCase(cmd)){
+                        this.sendSuccessMessage();
+//                        handleFileSend(tokens[1],tokens[2]);
+
                     } else if("logout".equalsIgnoreCase(cmd)){
                         this.handleLogout();
                     } else {
@@ -63,6 +67,33 @@ public class ServerWorker extends Thread {
         }
         this.clientSocket.close();
     }
+
+    //Not ok
+
+//    private void handleFileSend(String username, String pathFile) throws IOException {
+//        File sendFile = new File(pathFile);
+//        try {
+//            byte [] myByteArray = new byte[(int)sendFile.length()];
+//            this.fileInputStream = new FileInputStream(sendFile);
+//            this.bufferedInputStream = new BufferedInputStream(this.fileInputStream);
+//            this.bufferedInputStream.read(myByteArray,0,myByteArray.length);
+//            boolean sendSuccess = false;
+//            DataClient revClient = new DataClient(username,null);
+//            ArrayList<ServerWorker> workerList = getWorkerList();
+//            for (ServerWorker worker: workerList){
+//                if(!revClient.equals(this.getClient()) && revClient.equals(worker.getClient())){
+//                    this.outputStream = worker.server.
+//                    sendSuccess = true;
+//                }
+//            }
+//            if(!sendSuccess){
+//                this.sendErrorMessage();
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            this.sendErrorMessage();
+//        }
+//    }
 
     private void handleRegister(String username, String password) throws IOException {
         this.client = new DataClient("100",username,password);
@@ -106,7 +137,7 @@ public class ServerWorker extends Thread {
         for(ServerWorker worker: workerList ) {
             listUserOnline.add(worker.client.getUsername());
         }
-        String onlMsg2 = "listonline [" + String.join(",",listUserOnline) + "]\n";
+        String onlMsg2 = "listonline " + String.join(",",listUserOnline) + "\n";
         this.send(onlMsg2);
     }
 

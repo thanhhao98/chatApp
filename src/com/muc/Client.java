@@ -13,6 +13,7 @@ public class Client {
     private static BufferedReader bufferedIn;
 
     private ArrayList<MessageListener> messListeners = new ArrayList<>();
+    private ArrayList<ServerListener> serverListeners = new ArrayList<>();
 
     public Client(String serverName, int serverPort){
         this.serverName = serverName;
@@ -25,6 +26,12 @@ public class Client {
             @Override
             public void onMessage(String fromClient, String body){
                 System.out.println("You got a message from " + fromClient + " :" + body);
+            }
+        });
+        client.addServerListener(new ServerListener() {
+            @Override
+            public void onRespond(String Respond){
+                System.out.println(Respond);
             }
         });
         if (!client.connect()) {
@@ -50,6 +57,18 @@ public class Client {
         }
     }
 
+    public boolean checkLogin(String username, String password) throws IOException {
+        String cmd = "login " + username + " " + password;
+        this.sendCmd(cmd);
+        if(this.respondSuccess()){
+            cmd = "logout";
+            this.sendCmd(cmd);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private void startMessageReader() {
         Thread t = new Thread(){
             @Override
@@ -69,6 +88,8 @@ public class Client {
                     String cmd = tokens[0];
                     if(cmd.equalsIgnoreCase("recv")){
                         handleMessage(line);
+                    } else {
+                        handleServerMessage(line);
                     }
                 }
             }
@@ -77,6 +98,13 @@ public class Client {
         } {
 
         }
+    }
+
+    private void handleServerMessage(String line) {
+        for (ServerListener listener : this.serverListeners) {
+            listener.onRespond(line);
+        }
+
     }
 
     private void handleMessage(String line) {
@@ -123,6 +151,14 @@ public class Client {
 
     public void close() throws IOException {
         this.socket.close();
+    }
+
+    public void addServerListener(ServerListener listener){
+        this.serverListeners.add(listener);
+    }
+
+    public void removeServerListener(ServerListener listener){
+        this.serverListeners.remove(listener);
     }
 
     public void addMessageListener(MessageListener listener){
