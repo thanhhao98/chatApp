@@ -53,6 +53,11 @@ public class ConnectFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Host : ");
 
@@ -89,6 +94,11 @@ public class ConnectFrame extends javax.swing.JFrame {
 
         jButton3.setText("SignUp");
         jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,6 +199,37 @@ public class ConnectFrame extends javax.swing.JFrame {
             Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        username = jTextField3.getText();
+        password = String.valueOf(jPasswordField1.getPassword());
+        final JPanel panel2 = new JPanel();
+        if (username.contains(" ")){
+            JOptionPane.showMessageDialog(panel2, "Don't use space in your username", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            try {
+                if (!client.register(username, password)){
+                    JOptionPane.showMessageDialog(panel2, "Username already exist", "Error", JOptionPane.ERROR_MESSAGE);
+                } else{
+                    JOptionPane.showMessageDialog(panel2, "Register successfully. Login to chat!", "OK", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        String cmd = "quit";
+        try {
+            ConnectFrame.client.sendCmd(cmd);
+        } catch (IOException ex) {
+            Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
