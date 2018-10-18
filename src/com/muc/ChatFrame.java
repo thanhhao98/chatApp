@@ -20,7 +20,6 @@ public class ChatFrame extends javax.swing.JFrame {
     /**
      * Creates new form ChatFrame
      */
-    //public Client client;
     private final DefaultListModel onlineClientList;
     
     public ChatFrame() throws IOException {
@@ -33,8 +32,8 @@ public class ChatFrame extends javax.swing.JFrame {
                 if (token[0].equals("listonline")){
                     List<String> clList = Arrays.asList(token[1].split(","));
                     onlineClientList.clear();
-                    clList.forEach((clList1) -> {
-                        onlineClientList.addElement(clList1);
+                    clList.forEach((cl) -> {
+                        if (!cl.equals(ConnectFrame.username)) onlineClientList.addElement(cl);
                     });
                 }
             }
@@ -43,8 +42,7 @@ public class ChatFrame extends javax.swing.JFrame {
         ConnectFrame.client.addMessageListener(new MessageListener()  {
             @Override
             public void onMessage(String fromClient, String body){
-                System.out.println("You got a message from " + fromClient + " :" + body);
-                jTextArea1.append("\nFrom " + fromClient + ": " + body);
+                jTextArea1.append("From " + fromClient + ": " + body + "\n");
             }
         });
         initComponents();
@@ -82,11 +80,17 @@ public class ChatFrame extends javax.swing.JFrame {
         jTextField1.setText("Say something...");
 
         jButton1.setText("Send");
+        jButton1.setEnabled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Welcome !");
+        jTextArea1.setText("Welcome " + ConnectFrame.username + " !\n");
         jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextArea1.setFocusable(false);
         jScrollPane1.setViewportView(jTextArea1);
@@ -99,6 +103,11 @@ public class ChatFrame extends javax.swing.JFrame {
         });
         */
         jList1.setModel(onlineClientList);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jList1);
 
         jButton2.setText("Online");
@@ -146,27 +155,38 @@ public class ChatFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         System.out.println("Online button clicked");
         try {
-            //        try {
-//            ConnectFrame.client.sendCmd("listonline");
-//            String str = ConnectFrame.client.getRespond();
-////            System.out.println(str);
-//            String[] part = str.split("//s");
-//            
-////            String[] clList = part[1].split(",");
-//            List<String> clList = Arrays.asList(part[1].split(","));
-//            onlineClientList.clear();
-//            for (String clList1 : clList) {
-//                onlineClientList.addElement(clList1);
-//            }
-//        } catch (IOException ex) {
-//            Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
-//        }
             ConnectFrame.client.sendCmd("listonline");
-//            ConnectFrame.client.getRespond();
         } catch (IOException ex) {
             Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Send button clicked");
+        String msg = jTextField1.getText();
+        String cmd = "send " + ConnectFrame.client.toClient + " " + msg;
+        try {
+            ConnectFrame.client.sendCmd(cmd);
+            jTextArea1.append("To " + ConnectFrame.client.toClient + ": " + msg + "\n");
+        } catch (IOException ex) {
+            Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        // TODO add your handling code here:
+        String selected = (String) jList1.getSelectedValue();
+        if (selected != null){
+            ConnectFrame.client.toClient = selected;
+            jButton1.setEnabled(true);
+            jTextArea1.append("You're now pm-ing " + selected + "\n");
+        }
+        else{
+            ConnectFrame.client.toClient = null;
+            jButton1.setEnabled(false);
+        }
+    }//GEN-LAST:event_jList1MouseClicked
 
     /**
      * @param args the command line arguments

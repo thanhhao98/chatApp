@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -17,8 +19,10 @@ import javax.swing.JPanel;
  */
 public class ConnectFrame extends javax.swing.JFrame {
     public int port;
-    public String serverAddr, username, password;
+    public static String serverAddr, username, password;
     public static Client client;
+    
+    public static boolean cfUp = false;
     /**
      * Creates new form ConnectFrame
      */
@@ -150,16 +154,7 @@ public class ConnectFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         serverAddr = jTextField1.getText(); port = Integer.parseInt(jTextField2.getText());
-        client = new Client(serverAddr, port);
-        
-//        client.addMessageListener(new MessageListener()  {
-//            @Override
-//            public void onMessage(String fromClient, String body){
-//                System.out.println("You got a message from " + fromClient + " :" + body);
-//            }
-//        });
-        
-        
+        client = new Client(serverAddr, port);        
         final JPanel panel = new JPanel();
         if (!client.connect()) {
             JOptionPane.showMessageDialog(panel, "Server not found", "Error", JOptionPane.ERROR_MESSAGE);
@@ -187,6 +182,8 @@ public class ConnectFrame extends javax.swing.JFrame {
                 ChatFrame cf = new ChatFrame();
                 cf.setVisible(true);
                 setVisible(false);
+                
+                cfUp = true;
             }
         } catch (IOException ex) {
             Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -226,6 +223,22 @@ public class ConnectFrame extends javax.swing.JFrame {
                 new ConnectFrame().setVisible(true);
             }
         });
+        Timer timer = new Timer();
+        TimerTask myTask = new TimerTask() {
+            @Override
+            public void run() {
+                // whatever you need to do every 2 seconds
+                if (cfUp){
+                    try {
+                        client.sendCmd("listonline");
+                    } catch (IOException ex) {
+                        Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+
+        timer.schedule(myTask, 2000, 2000);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

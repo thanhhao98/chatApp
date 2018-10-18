@@ -14,6 +14,8 @@ public class Client {
 
     private ArrayList<MessageListener> messListeners = new ArrayList<>();
     private ArrayList<ServerListener> serverListeners = new ArrayList<>();
+    
+    public static String toClient;
 
     public Client(String serverName, int serverPort){
         this.serverName = serverName;
