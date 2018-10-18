@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 public class ConnectFrame extends javax.swing.JFrame {
     public int port;
     public String serverAddr, username, password;
-    public Client client;
+    public static Client client;
     /**
      * Creates new form ConnectFrame
      */
@@ -151,11 +151,20 @@ public class ConnectFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         serverAddr = jTextField1.getText(); port = Integer.parseInt(jTextField2.getText());
         client = new Client(serverAddr, port);
+        
+//        client.addMessageListener(new MessageListener()  {
+//            @Override
+//            public void onMessage(String fromClient, String body){
+//                System.out.println("You got a message from " + fromClient + " :" + body);
+//            }
+//        });
+        
+        
         final JPanel panel = new JPanel();
         if (!client.connect()) {
             JOptionPane.showMessageDialog(panel, "Server not found", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(panel, "Connection established successfully", "OK", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(panel, "Connection established successfully", "OK", JOptionPane.INFORMATION_MESSAGE);
             jTextField1.setEnabled(false);
             jTextField2.setEnabled(false);
             jButton1.setEnabled(false);
@@ -164,7 +173,6 @@ public class ConnectFrame extends javax.swing.JFrame {
             jButton2.setEnabled(true);
             jButton3.setEnabled(true);
         }
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
