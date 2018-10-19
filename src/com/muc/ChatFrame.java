@@ -84,6 +84,7 @@ public class ChatFrame extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.setToolTipText("Write something :)");
         jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextField1.setName(""); // NOI18N
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {

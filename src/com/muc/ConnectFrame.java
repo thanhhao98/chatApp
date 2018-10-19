@@ -80,7 +80,7 @@ public class ConnectFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Password : ");
 
-        jTextField3.setText("admin");
+        jTextField3.setText("guest");
         jTextField3.setEnabled(false);
         jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -88,7 +88,7 @@ public class ConnectFrame extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.setText("admin");
+        jPasswordField1.setText("guest");
         jPasswordField1.setEnabled(false);
         jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -221,6 +221,9 @@ public class ConnectFrame extends javax.swing.JFrame {
         final JPanel panel2 = new JPanel();
         if (username.contains(" ")){
             JOptionPane.showMessageDialog(panel2, "Don't use space in your username", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (password.equals("")){
+            JOptionPane.showMessageDialog(panel2, "Empty password", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else{
             try {
