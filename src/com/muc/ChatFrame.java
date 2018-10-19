@@ -84,14 +84,8 @@ public class ChatFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("Say something...");
         jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextField1.setName(""); // NOI18N
-        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField1MouseClicked(evt);
-            }
-        });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField1KeyPressed(evt);
@@ -217,11 +211,6 @@ public class ChatFrame extends javax.swing.JFrame {
             jButton1.setEnabled(false);
         }
     }//GEN-LAST:event_jList1MouseClicked
-
-    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
-        // TODO add your handling code here:
-        jTextField1.selectAll();
-    }//GEN-LAST:event_jTextField1MouseClicked
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
         // TODO add your handling code here:

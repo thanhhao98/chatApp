@@ -5,6 +5,7 @@
  */
 package com.muc;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +24,7 @@ public class ConnectFrame extends javax.swing.JFrame {
     public static Client client;
     
     public static boolean cfUp = false;
+    public static boolean connected = false;
     /**
      * Creates new form ConnectFrame
      */
@@ -80,9 +82,19 @@ public class ConnectFrame extends javax.swing.JFrame {
 
         jTextField3.setText("admin");
         jTextField3.setEnabled(false);
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField3KeyPressed(evt);
+            }
+        });
 
         jPasswordField1.setText("admin");
         jPasswordField1.setEnabled(false);
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
 
         jButton2.setText("LogIn");
         jButton2.setEnabled(false);
@@ -177,6 +189,8 @@ public class ConnectFrame extends javax.swing.JFrame {
             jPasswordField1.setEnabled(true);
             jButton2.setEnabled(true);
             jButton3.setEnabled(true);
+            
+            connected = true;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -223,13 +237,59 @@ public class ConnectFrame extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        String cmd = "quit";
-        try {
-            ConnectFrame.client.sendCmd(cmd);
-        } catch (IOException ex) {
-            Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+        if (connected){
+            String cmd = "quit";
+            try {
+                ConnectFrame.client.sendCmd(cmd);
+            } catch (IOException ex) {
+                Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            username = jTextField3.getText();
+            password = String.valueOf(jPasswordField1.getPassword());
+            final JPanel panel1 = new JPanel();
+            try {
+                if (!client.login(username, password)){
+                    JOptionPane.showMessageDialog(panel1, "Wrong username or password", "Error", JOptionPane.ERROR_MESSAGE);
+                } else{
+                    ChatFrame cf = new ChatFrame();
+                    cf.setVisible(true);
+                    setVisible(false);
+
+                    cfUp = true;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jTextField3KeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            username = jTextField3.getText();
+            password = String.valueOf(jPasswordField1.getPassword());
+            final JPanel panel1 = new JPanel();
+            try {
+                if (!client.login(username, password)){
+                    JOptionPane.showMessageDialog(panel1, "Wrong username or password", "Error", JOptionPane.ERROR_MESSAGE);
+                } else{
+                    ChatFrame cf = new ChatFrame();
+                    cf.setVisible(true);
+                    setVisible(false);
+
+                    cfUp = true;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
 
     /**
      * @param args the command line arguments
