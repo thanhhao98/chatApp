@@ -21,10 +21,10 @@ public class ChatFrame extends javax.swing.JFrame {
     /**
      * Creates new form ChatFrame
      */
-    private final DefaultListModel onlineClientList;
+    public static DefaultListModel onlineClientList;
     
     public ChatFrame() throws IOException {
-        this.onlineClientList = new DefaultListModel();
+        ChatFrame.onlineClientList = new DefaultListModel();
         ConnectFrame.client.addServerListener(new ServerListener() {
             @Override
             public void onRespond(String Respond){
@@ -188,15 +188,18 @@ public class ChatFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         System.out.println("Send button clicked");
-        String msg = jTextField1.getText();
-        String cmd = "send " + ConnectFrame.client.toClient + " " + msg;
-        try {
-            ConnectFrame.client.sendCmd(cmd);
-            jTextArea1.append("To " + ConnectFrame.client.toClient + ": " + msg + "\n");
-        } catch (IOException ex) {
-            Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+        if (ConnectFrame.client.toClient != null){
+            String msg = jTextField1.getText();
+            String cmd = "send " + ConnectFrame.client.toClient + " " + msg;
+            try {
+                ConnectFrame.client.sendCmd(cmd);
+                jTextArea1.append("To " + ConnectFrame.client.toClient + ": " + msg + "\n");
+            } catch (IOException ex) {
+                Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            jTextField1.setText("");
         }
-        jTextField1.setText("");
+        else jButton1.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
@@ -228,7 +231,7 @@ public class ChatFrame extends javax.swing.JFrame {
                 jTextField1.setText("");
             }
         }
-        
+        else jButton1.setEnabled(false);
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

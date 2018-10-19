@@ -175,22 +175,27 @@ public class ConnectFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        serverAddr = jTextField1.getText(); port = Integer.parseInt(jTextField2.getText());
-        client = new Client(serverAddr, port);        
         final JPanel panel = new JPanel();
-        if (!client.connect()) {
-            JOptionPane.showMessageDialog(panel, "Server not found", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            //JOptionPane.showMessageDialog(panel, "Connection established successfully", "OK", JOptionPane.INFORMATION_MESSAGE);
-            jTextField1.setEnabled(false);
-            jTextField2.setEnabled(false);
-            jButton1.setEnabled(false);
-            jTextField3.setEnabled(true);
-            jPasswordField1.setEnabled(true);
-            jButton2.setEnabled(true);
-            jButton3.setEnabled(true);
-            
-            connected = true;
+        if (jTextField1.getText().equals("") || jTextField2.getText().equals("")){
+            JOptionPane.showMessageDialog(panel, "Empty host name or port", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            serverAddr = jTextField1.getText(); port = Integer.parseInt(jTextField2.getText());
+            client = new Client(serverAddr, port);    
+            if (!client.connect()) {
+                JOptionPane.showMessageDialog(panel, "Server not found", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                //JOptionPane.showMessageDialog(panel, "Connection established successfully", "OK", JOptionPane.INFORMATION_MESSAGE);
+                jTextField1.setEnabled(false);
+                jTextField2.setEnabled(false);
+                jButton1.setEnabled(false);
+                jTextField3.setEnabled(true);
+                jPasswordField1.setEnabled(true);
+                jButton2.setEnabled(true);
+                jButton3.setEnabled(true);
+
+                connected = true;
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -338,6 +343,14 @@ public class ConnectFrame extends javax.swing.JFrame {
                     } catch (IOException ex) {
                         Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    boolean flag = true;
+                    for (int i=0; i<ChatFrame.onlineClientList.getSize(); i++){
+                        if (ChatFrame.onlineClientList.getElementAt(i).equals(client.toClient)){
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if (flag) client.toClient = null;
                 }
             }
         };
