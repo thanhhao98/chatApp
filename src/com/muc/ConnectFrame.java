@@ -25,6 +25,7 @@ public class ConnectFrame extends javax.swing.JFrame {
     
     public static boolean cfUp = false;
     public static boolean connected = false;
+    public static String offMsg;
     /**
      * Creates new form ConnectFrame
      */
@@ -350,7 +351,12 @@ public class ConnectFrame extends javax.swing.JFrame {
                             break;
                         }
                     }
-                    if (flag) client.toClient = null;
+                    if (client.toClient == null) flag = false;
+                    if (flag) {
+                        offMsg = client.toClient + " is now offline\n";
+                        ChatFrame.jTextArea1.append(offMsg);
+                        client.toClient = null;
+                    }
                 }
             }
         };

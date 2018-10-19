@@ -28,7 +28,6 @@ public class ChatFrame extends javax.swing.JFrame {
         ConnectFrame.client.addServerListener(new ServerListener() {
             @Override
             public void onRespond(String Respond){
-                System.out.println(Respond);
                 String[] token = Respond.split("\\s");
                 if (token[0].equals("listonline")){
                     List<String> clList = Arrays.asList(token[1].split(","));
@@ -294,7 +293,7 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
+    public static javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
