@@ -5,11 +5,14 @@
  */
 package com.muc;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -17,8 +20,12 @@ import javax.swing.JPanel;
  */
 public class ConnectFrame extends javax.swing.JFrame {
     public int port;
-    public String serverAddr, username, password;
-    public Client client;
+    public static String serverAddr, username, password;
+    public static Client client;
+    
+    public static boolean cfUp = false;
+    public static boolean connected = false;
+    public static String offMsg;
     /**
      * Creates new form ConnectFrame
      */
@@ -49,6 +56,11 @@ public class ConnectFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Host : ");
 
@@ -69,11 +81,21 @@ public class ConnectFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Password : ");
 
-        jTextField3.setText("admin");
+        jTextField3.setText("guest");
         jTextField3.setEnabled(false);
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField3KeyPressed(evt);
+            }
+        });
 
-        jPasswordField1.setText("admin");
+        jPasswordField1.setText("guest");
         jPasswordField1.setEnabled(false);
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
 
         jButton2.setText("LogIn");
         jButton2.setEnabled(false);
@@ -85,6 +107,11 @@ public class ConnectFrame extends javax.swing.JFrame {
 
         jButton3.setText("SignUp");
         jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,22 +176,28 @@ public class ConnectFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        serverAddr = jTextField1.getText(); port = Integer.parseInt(jTextField2.getText());
-        client = new Client(serverAddr, port);
         final JPanel panel = new JPanel();
-        if (!client.connect()) {
-            JOptionPane.showMessageDialog(panel, "Server not found", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(panel, "Connection established successfully", "OK", JOptionPane.INFORMATION_MESSAGE);
-            jTextField1.setEnabled(false);
-            jTextField2.setEnabled(false);
-            jButton1.setEnabled(false);
-            jTextField3.setEnabled(true);
-            jPasswordField1.setEnabled(true);
-            jButton2.setEnabled(true);
-            jButton3.setEnabled(true);
+        if (jTextField1.getText().equals("") || jTextField2.getText().equals("")){
+            JOptionPane.showMessageDialog(panel, "Empty host name or port", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+        else{
+            serverAddr = jTextField1.getText(); port = Integer.parseInt(jTextField2.getText());
+            client = new Client(serverAddr, port);    
+            if (!client.connect()) {
+                JOptionPane.showMessageDialog(panel, "Server not found", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                //JOptionPane.showMessageDialog(panel, "Connection established successfully", "OK", JOptionPane.INFORMATION_MESSAGE);
+                jTextField1.setEnabled(false);
+                jTextField2.setEnabled(false);
+                jButton1.setEnabled(false);
+                jTextField3.setEnabled(true);
+                jPasswordField1.setEnabled(true);
+                jButton2.setEnabled(true);
+                jButton3.setEnabled(true);
+
+                connected = true;
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -179,11 +212,93 @@ public class ConnectFrame extends javax.swing.JFrame {
                 ChatFrame cf = new ChatFrame();
                 cf.setVisible(true);
                 setVisible(false);
+                
+                cfUp = true;
             }
         } catch (IOException ex) {
             Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        username = jTextField3.getText();
+        password = String.valueOf(jPasswordField1.getPassword());
+        final JPanel panel2 = new JPanel();
+        if (username.contains(" ")){
+            JOptionPane.showMessageDialog(panel2, "Don't use space in your username", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (password.equals("")){
+            JOptionPane.showMessageDialog(panel2, "Empty password", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            try {
+                if (!client.register(username, password)){
+                    JOptionPane.showMessageDialog(panel2, "Username already exist", "Error", JOptionPane.ERROR_MESSAGE);
+                } else{
+                    JOptionPane.showMessageDialog(panel2, "Register successfully. Login to chat!", "OK", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        if (connected){
+            String cmd = "quit";
+            try {
+                ConnectFrame.client.sendCmd(cmd);
+            } catch (IOException ex) {
+                Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            username = jTextField3.getText();
+            password = String.valueOf(jPasswordField1.getPassword());
+            final JPanel panel1 = new JPanel();
+            try {
+                if (!client.login(username, password)){
+                    JOptionPane.showMessageDialog(panel1, "Wrong username or password", "Error", JOptionPane.ERROR_MESSAGE);
+                } else{
+                    ChatFrame cf = new ChatFrame();
+                    cf.setVisible(true);
+                    setVisible(false);
+
+                    cfUp = true;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jTextField3KeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            username = jTextField3.getText();
+            password = String.valueOf(jPasswordField1.getPassword());
+            final JPanel panel1 = new JPanel();
+            try {
+                if (!client.login(username, password)){
+                    JOptionPane.showMessageDialog(panel1, "Wrong username or password", "Error", JOptionPane.ERROR_MESSAGE);
+                } else{
+                    ChatFrame cf = new ChatFrame();
+                    cf.setVisible(true);
+                    setVisible(false);
+
+                    cfUp = true;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -218,6 +333,35 @@ public class ConnectFrame extends javax.swing.JFrame {
                 new ConnectFrame().setVisible(true);
             }
         });
+        Timer timer = new Timer();
+        TimerTask myTask = new TimerTask() {
+            @Override
+            public void run() {
+                // whatever you need to do every 2 seconds
+                if (cfUp){
+                    try {
+                        client.sendCmd("listonline");
+                    } catch (IOException ex) {
+                        Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    boolean flag = true;
+                    for (int i=0; i<ChatFrame.onlineClientList.getSize(); i++){
+                        if (ChatFrame.onlineClientList.getElementAt(i).equals(client.toClient)){
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if (client.toClient == null) flag = false;
+                    if (flag) {
+                        offMsg = client.toClient + " is now offline\n";
+                        ChatFrame.jTextArea1.append(offMsg);
+                        client.toClient = null;
+                    }
+                }
+            }
+        };
+
+        timer.schedule(myTask, 2000, 2000);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

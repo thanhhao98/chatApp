@@ -14,6 +14,8 @@ public class Client {
 
     private ArrayList<MessageListener> messListeners = new ArrayList<>();
     private ArrayList<ServerListener> serverListeners = new ArrayList<>();
+    
+    public static String toClient;
 
     public Client(String serverName, int serverPort){
         this.serverName = serverName;
@@ -56,18 +58,24 @@ public class Client {
             return false;
         }
     }
-
-    public boolean checkLogin(String username, String password) throws IOException {
-        String cmd = "login " + username + " " + password;
+    
+    public boolean register(String username, String password) throws IOException {
+        String cmd = "register " + username + " " + password;
         this.sendCmd(cmd);
-        if(this.respondSuccess()){
-            cmd = "logout";
-            this.sendCmd(cmd);
-            return true;
-        } else {
-            return false;
-        }
+        return this.respondSuccess();
     }
+
+//    public boolean checkLogin(String username, String password) throws IOException {
+//        String cmd = "login " + username + " " + password;
+//        this.sendCmd(cmd);
+//        if(this.respondSuccess()){
+//            cmd = "logout";
+//            this.sendCmd(cmd);
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     private void startMessageReader() {
         Thread t = new Thread(){

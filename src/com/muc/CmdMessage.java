@@ -5,8 +5,8 @@ package com.muc;
 
 /*
 
-Tắt session khi chưa logout -> đăng nhập lại lỗi.
-
+Tắt session khi chưa logout -> đăng nhập lại lỗi. //handle tự logout, quit trên ui rồi 
+đang login có thằng khác login 
 
 
 */
