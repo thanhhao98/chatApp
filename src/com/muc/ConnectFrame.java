@@ -6,7 +6,9 @@
 package com.muc;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,6 +21,8 @@ import java.util.TimerTask;
  * @author oz
  */
 public class ConnectFrame extends javax.swing.JFrame {
+    public static File currentJar;
+
     public int port;
     public static String serverAddr, username, password;
     public static Client client;
@@ -26,6 +30,7 @@ public class ConnectFrame extends javax.swing.JFrame {
     public static boolean cfUp = false;
     public static boolean connected = false;
     public static String offMsg;
+//    public static ConnectFrame c;
     /**
      * Creates new form ConnectFrame
      */
@@ -175,7 +180,6 @@ public class ConnectFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         final JPanel panel = new JPanel();
         if (jTextField1.getText().equals("") || jTextField2.getText().equals("")){
             JOptionPane.showMessageDialog(panel, "Empty host name or port", "Error", JOptionPane.ERROR_MESSAGE);
@@ -225,8 +229,8 @@ public class ConnectFrame extends javax.swing.JFrame {
         username = jTextField3.getText();
         password = String.valueOf(jPasswordField1.getPassword());
         final JPanel panel2 = new JPanel();
-        if (username.contains(" ")){
-            JOptionPane.showMessageDialog(panel2, "Don't use space in your username", "Error", JOptionPane.ERROR_MESSAGE);
+        if (username.contains(" ") || username.contains(",")){
+            JOptionPane.showMessageDialog(panel2, "Don't use spaces or commas in your username", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else if (password.equals("")){
             JOptionPane.showMessageDialog(panel2, "Empty password", "Error", JOptionPane.ERROR_MESSAGE);
@@ -303,7 +307,7 @@ public class ConnectFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]){
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -362,6 +366,11 @@ public class ConnectFrame extends javax.swing.JFrame {
         };
 
         timer.schedule(myTask, 2000, 2000);
+        try {
+            currentJar = new File(ConnectFrame.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
