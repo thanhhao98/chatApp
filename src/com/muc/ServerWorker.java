@@ -3,6 +3,7 @@ package com.muc;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class ServerWorker extends Thread {
     private final Socket clientSocket;
@@ -156,14 +157,20 @@ public class ServerWorker extends Thread {
         if(tokens.length==3){
             this.client = new DataClient(tokens[1],tokens[2]);
             if(this.client.checkUserExist()){
-                this.login = true;
                 ArrayList<ServerWorker> listWorker = getWorkerList();
-                for(ServerWorker worker: listWorker){
-                    System.out.println(worker.client.getUsername());
-                    if(this.client.equals(worker.getClient())){
-                        worker.handleLogout();
+                try{
+                    for(ServerWorker worker: listWorker){
+                        System.out.println(worker.client.getUsername());
+                        if(this.client.equals(worker.getClient())){
+                            worker.handleLogout();
+                            worker.send("logout\n");
+                        }
                     }
+                } catch(ConcurrentModificationException e) {
+                    this.sendErrorMessage();
+                    return;
                 }
+                this.login = true;
                 this.server.addListWorker(this);
                 this.sendSuccessMessage();
             } else {

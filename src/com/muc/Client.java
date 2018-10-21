@@ -65,18 +65,6 @@ public class Client {
         return this.respondSuccess();
     }
 
-//    public boolean checkLogin(String username, String password) throws IOException {
-//        String cmd = "login " + username + " " + password;
-//        this.sendCmd(cmd);
-//        if(this.respondSuccess()){
-//            cmd = "logout";
-//            this.sendCmd(cmd);
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
     private void startMessageReader() {
         Thread t = new Thread(){
             @Override
@@ -106,6 +94,12 @@ public class Client {
         } {
 
         }
+    }
+
+    public void handleSendFile(String pathFile, Client revClient ){
+        FileInputStream fis = null;
+        BufferedInputStream bis = null;
+
     }
 
     private void handleServerMessage(String line) {
