@@ -229,8 +229,11 @@ public class ConnectFrame extends javax.swing.JFrame {
         username = jTextField3.getText();
         password = String.valueOf(jPasswordField1.getPassword());
         final JPanel panel2 = new JPanel();
-        if (username.contains(" ") || username.contains(",")){
-            JOptionPane.showMessageDialog(panel2, "Don't use spaces or commas in your username", "Error", JOptionPane.ERROR_MESSAGE);
+        if (username.contains(" ") || username.contains(",") || password.contains(" ") || password.contains(",")){
+            JOptionPane.showMessageDialog(panel2, "Don't use spaces or commas in your username and password", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (username.equals("")){
+            JOptionPane.showMessageDialog(panel2, "Empty username", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else if (password.equals("")){
             JOptionPane.showMessageDialog(panel2, "Empty password", "Error", JOptionPane.ERROR_MESSAGE);

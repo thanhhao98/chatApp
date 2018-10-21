@@ -6,9 +6,7 @@
 package com.muc;
 
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
