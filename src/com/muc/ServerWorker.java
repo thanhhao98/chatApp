@@ -11,6 +11,8 @@ public class ServerWorker extends Thread {
     private OutputStream outputStream;
     private boolean login = false;
     private DataClient client;
+    private FileInputStream fileInputStream;
+    private BufferedInputStream bufferedInputStream;
 
     public ServerWorker(Server server,Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -54,10 +56,8 @@ public class ServerWorker extends Thread {
                             handleSendMessage(tokens[1], body);
                         } finally {
                         }
-                    } else if("filesend".equalsIgnoreCase(cmd)){
-                        this.sendSuccessMessage();
-//                        handleFileSend(tokens[1],tokens[2]);
-
+                    } else if("sendfile".equalsIgnoreCase(cmd)){
+                        handleFileSend(tokens[1],tokens[2]);
                     } else if("logout".equalsIgnoreCase(cmd)){
                         this.handleLogout();
                     } else {
@@ -69,32 +69,39 @@ public class ServerWorker extends Thread {
         this.clientSocket.close();
     }
 
-    //Not ok
 
-//    private void handleFileSend(String username, String pathFile) throws IOException {
-//        File sendFile = new File(pathFile);
-//        try {
-//            byte [] myByteArray = new byte[(int)sendFile.length()];
-//            this.fileInputStream = new FileInputStream(sendFile);
-//            this.bufferedInputStream = new BufferedInputStream(this.fileInputStream);
-//            this.bufferedInputStream.read(myByteArray,0,myByteArray.length);
-//            boolean sendSuccess = false;
-//            DataClient revClient = new DataClient(username,null);
-//            ArrayList<ServerWorker> workerList = getWorkerList();
-//            for (ServerWorker worker: workerList){
-//                if(!revClient.equals(this.getClient()) && revClient.equals(worker.getClient())){
-//                    this.outputStream = worker.server.
-//                    sendSuccess = true;
-//                }
-//            }
-//            if(!sendSuccess){
-//                this.sendErrorMessage();
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//            this.sendErrorMessage();
-//        }
-//    }
+    private void handleFileSend(String usernameRev, String pathFile) throws IOException {
+        try{
+            boolean sendSuccess = false;
+            DataClient revClient = new DataClient(usernameRev,null);
+            ArrayList<ServerWorker> workerList = getWorkerList();
+            File myFile = new File (pathFile);
+            String filename = myFile.getName();
+            String msg = "recvfile " + this.client.getUsername() + " " + filename +  " " + myFile.length() + "\n";
+            System.out.print(msg);
+            for (ServerWorker worker: workerList){
+                if(!revClient.equals(this.getClient()) && revClient.equals(worker.getClient())){
+                    System.out.println(msg);
+                    worker.send(msg);
+                    byte [] mybytearray  = new byte [(int)myFile.length()];
+                    worker.fileInputStream = new FileInputStream(myFile);
+                    worker.bufferedInputStream = new BufferedInputStream(worker.fileInputStream);
+                    worker.bufferedInputStream.read(mybytearray,0,mybytearray.length);
+                    worker.outputStream.write(mybytearray,0,mybytearray.length);
+                    worker.outputStream.flush();
+                    sendSuccess = true;
+                    this.sendSuccessMessage();
+                }
+            }
+            if(!sendSuccess){
+                this.sendErrorMessage();
+            }
+        } catch (FileNotFoundException e){
+            this.sendErrorMessage();
+            return;
+        }
+    }
+
 
     private void handleRegister(String username, String password) throws IOException {
         this.client = new DataClient("100",username,password);
@@ -160,7 +167,6 @@ public class ServerWorker extends Thread {
                 ArrayList<ServerWorker> listWorker = getWorkerList();
                 try{
                     for(ServerWorker worker: listWorker){
-                        System.out.println(worker.client.getUsername());
                         if(this.client.equals(worker.getClient())){
                             worker.handleLogout();
                             worker.send("logout\n");

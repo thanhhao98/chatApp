@@ -11,9 +11,12 @@ public class Client {
     private OutputStream serverOut;
     private InputStream serverIn;
     private static BufferedReader bufferedIn;
+    private FileOutputStream fileOutputStream;
+    private BufferedOutputStream bufferedOutputStream;
 
     private ArrayList<MessageListener> messListeners = new ArrayList<>();
     private ArrayList<ServerListener> serverListeners = new ArrayList<>();
+    private  ArrayList<FileListener> fileListeners = new ArrayList<>();
     
     public static String toClient;
 
@@ -36,6 +39,13 @@ public class Client {
                 System.out.println(Respond);
             }
         });
+        client.addFileListener(new FileListener() {
+            @Override
+            public void onRevFile(String revFrom,String nameFile,int sizeFile) throws IOException {
+                String pathSave = "/Users/mpxt2/bk/computerNetwork/Ass/demoFileTranfer/"+nameFile;
+                client.saveFileRev(pathSave,sizeFile);
+            }
+        });
         if (!client.connect()) {
             System.err.println("Connnect fail");
         } else {
@@ -46,6 +56,16 @@ public class Client {
                 System.out.println("error");
             }
         }
+    }
+
+    public void saveFileRev(String pathSave,int sizeFile) throws IOException {
+        byte [] mybytearray  = new byte [sizeFile];
+        this.fileOutputStream = new FileOutputStream(pathSave);
+        this.bufferedOutputStream = new BufferedOutputStream(this.fileOutputStream);
+        this.serverIn.read(mybytearray, 0, sizeFile);
+        this.bufferedOutputStream.write(mybytearray, 0 , sizeFile);
+        this.bufferedOutputStream.flush();
+        System.out.println("Rev file successfully");
     }
 
     public boolean login(String username, String password) throws IOException {
@@ -84,7 +104,10 @@ public class Client {
                     String cmd = tokens[0];
                     if(cmd.equalsIgnoreCase("recv")){
                         handleMessage(line);
-                    } else {
+                    } else if(cmd.equalsIgnoreCase("recvfile")) {
+                        handleSendFile(tokens[1],tokens[2],Integer.parseInt(tokens[3]));
+                    }
+                    else {
                         handleServerMessage(line);
                     }
                 }
@@ -96,9 +119,11 @@ public class Client {
         }
     }
 
-    public void handleSendFile(String pathFile, Client revClient ){
-        FileInputStream fis = null;
-        BufferedInputStream bis = null;
+
+    public void handleSendFile(String sendFrom,String nameFile, int sizeFile) throws IOException {
+        for (FileListener listener: this.fileListeners){
+            listener.onRevFile(sendFrom,nameFile,sizeFile);
+        }
 
     }
 
@@ -153,6 +178,14 @@ public class Client {
 
     public void close() throws IOException {
         this.socket.close();
+    }
+
+    public void addFileListener(FileListener listener){
+        this.fileListeners.add(listener);
+    }
+
+    public void removeFileListener(FileListener listener){
+        this.fileListeners.remove(listener);
     }
 
     public void addServerListener(ServerListener listener){
