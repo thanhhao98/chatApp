@@ -12,11 +12,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
  * @author oz
  */
+
 public class ChatFrame extends javax.swing.JFrame {
     /**
      * Creates new form ChatFrame
@@ -35,6 +38,18 @@ public class ChatFrame extends javax.swing.JFrame {
                     clList.forEach((cl) -> {
                         if (!cl.equals(ConnectFrame.username)) onlineClientList.addElement(cl);
                     });
+                }
+                else if (token[0].equals("logout")){     
+                    final JPanel panel = new JPanel();
+                    JOptionPane.showMessageDialog(panel, "Someone else logging in! Quitting!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    
+                    String cmd = "java -jar " + ConnectFrame.currentJar.toString();
+                    try {
+                        Runtime.getRuntime().exec(cmd);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.exit(0);
                 }
             }
         });
@@ -176,7 +191,6 @@ public class ChatFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.out.println("Online button clicked");
         try {
             ConnectFrame.client.sendCmd("listonline");
         } catch (IOException ex) {
@@ -186,7 +200,6 @@ public class ChatFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        System.out.println("Send button clicked");
         if (ConnectFrame.client.toClient != null){
             String msg = jTextField1.getText();
             String cmd = "send " + ConnectFrame.client.toClient + " " + msg;
