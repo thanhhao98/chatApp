@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0b72345a-294b-448c-87ff-03134962d564" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/muc/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/muc/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/muc/CmdMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/muc/CmdMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/muc/ServerWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/muc/ServerWorker.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -42,13 +40,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="11549" />
+          <entry key="java" value="11559" />
           <entry key="xml" value="78" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="11549" />
+          <entry key="JAVA" value="11559" />
           <entry key="XML" value="78" />
         </counts>
       </usages-collector>
@@ -127,11 +125,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/muc/ServerWorker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1853">
-              <caret line="188" column="4" selection-start-line="188" selection-start-column="4" selection-end-line="188" selection-end-column="4" />
+            <state relative-caret-position="290">
+              <caret line="169" column="40" selection-start-line="169" selection-start-column="40" selection-end-line="169" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#6529#6530#0" expanded="true" />
@@ -152,10 +150,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/muc/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1485">
+            <state relative-caret-position="926">
               <caret line="99" column="35" lean-forward="true" selection-start-line="99" selection-start-column="35" selection-end-line="99" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -231,8 +229,8 @@
         <option value="$PROJECT_DIR$/src/com/muc/MessageListener.java" />
         <option value="$PROJECT_DIR$/src/com/muc/ServerListener.java" />
         <option value="$PROJECT_DIR$/src/com/muc/CmdMessage.java" />
-        <option value="$PROJECT_DIR$/src/com/muc/ServerWorker.java" />
         <option value="$PROJECT_DIR$/src/com/muc/Client.java" />
+        <option value="$PROJECT_DIR$/src/com/muc/ServerWorker.java" />
       </list>
     </option>
   </component>
@@ -375,12 +373,12 @@
       <updated>1539659838499</updated>
       <workItem from="1539659841567" duration="17756000" />
       <workItem from="1539703934402" duration="31506000" />
-      <workItem from="1540049583309" duration="4108000" />
+      <workItem from="1540049583309" duration="4653000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54310000" />
+    <option name="totallyTimeSpent" value="54855000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
@@ -536,23 +534,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/muc/ServerWorker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1853">
-          <caret line="188" column="4" selection-start-line="188" selection-start-column="4" selection-end-line="188" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6529#6530#0" expanded="true" />
-            <element signature="e#6563#6564#0" expanded="true" />
-            <element signature="e#7014#7015#0" expanded="true" />
-            <element signature="e#7047#7048#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/muc/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1485">
+        <state relative-caret-position="926">
           <caret line="99" column="35" lean-forward="true" selection-start-line="99" selection-start-column="35" selection-end-line="99" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -560,6 +544,20 @@
             <element signature="e#1229#1230#0" expanded="true" />
             <element signature="e#2293#2420#0" expanded="true" />
             <element signature="e#2419#2420#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/muc/ServerWorker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="169" column="40" selection-start-line="169" selection-start-column="40" selection-end-line="169" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6529#6530#0" expanded="true" />
+            <element signature="e#6563#6564#0" expanded="true" />
+            <element signature="e#7014#7015#0" expanded="true" />
+            <element signature="e#7047#7048#0" expanded="true" />
           </folding>
         </state>
       </provider>

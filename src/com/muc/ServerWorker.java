@@ -167,8 +167,7 @@ public class ServerWorker extends Thread {
                         }
                     }
                 } catch(ConcurrentModificationException e) {
-                    this.sendErrorMessage();
-                    return;
+                    e.printStackTrace();
                 }
                 this.login = true;
                 this.server.addListWorker(this);
