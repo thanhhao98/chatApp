@@ -70,15 +70,12 @@ public class ChatFrame extends javax.swing.JFrame {
                 String msg = revFrom + " sent you a file named '" + nameFile + "'. Do you wanna save it?";
                 if (JOptionPane.showConfirmDialog(null, msg, "MESSAGE", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     // yes option
-                    //String pathSave = "/home/oz/Downloads/saved/"+nameFile;
-                    
                     JFileChooser fileChooser = new JFileChooser();
                     fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                     fileChooser.showDialog(null, "Select Folder");
                     file = fileChooser.getSelectedFile();
-                    String pathSave = file.getPath() + "/" + nameFile;
-                 
-                    
+                    File pathToFile = new File(file, nameFile);
+                    String pathSave = pathToFile.getPath();
                     ConnectFrame.client.saveFileRev(pathSave,sizeFile);
                     jTextArea1.append("You saved a file named '" + nameFile + "' from " + revFrom + " under " + pathSave + "\n");
                 } else {
@@ -356,6 +353,8 @@ public class ChatFrame extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         if (ConnectFrame.client.toClient != null){
+            ConnectFrame.client.sendFlag = true;
+            System.out.println(ConnectFrame.client.sendFlag);
             String msg = jTextField2.getText();
             String cmd = "sendfile " + ConnectFrame.client.toClient + " " + msg;
             try {
@@ -366,6 +365,7 @@ public class ChatFrame extends javax.swing.JFrame {
             }
             jTextField2.setText("");
             jButton4.setEnabled(false);
+            ConnectFrame.client.sendFlag = false;
         }
         else {
             jButton4.setEnabled(false);
