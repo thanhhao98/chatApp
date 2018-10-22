@@ -57,7 +57,8 @@ public class ServerWorker extends Thread {
                         } finally {
                         }
                     } else if("sendfile".equalsIgnoreCase(cmd)){
-                        handleFileSend(tokens[1],tokens[2]);
+                        String filePath = line.split("\\s", 3)[2];
+                        handleFileSend(tokens[1],filePath);
                     } else if("logout".equalsIgnoreCase(cmd)){
                         this.handleLogout();
                     } else {
@@ -77,9 +78,10 @@ public class ServerWorker extends Thread {
         File myFile = new File (pathFile);
         if(myFile.exists()) {
             String filename = myFile.getName();
-            String msg = "recvfile " + this.client.getUsername() + " " + filename + " " + myFile.length() + "\n";
+            String msg = "recvfile " + this.client.getUsername() + " " + myFile.length() + " "  + filename + "\n";
             for (ServerWorker worker : workerList) {
                 if (!revClient.equals(this.getClient()) && revClient.equals(worker.getClient())) {
+                    System.out.println(msg);
                     worker.send(msg);
                     byte[] mybytearray = new byte[(int) myFile.length()];
                     worker.fileInputStream = new FileInputStream(myFile);

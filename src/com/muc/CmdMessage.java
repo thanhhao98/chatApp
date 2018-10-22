@@ -26,7 +26,7 @@ Id  detail  example
 6       quit                                        quit
 7       register                                    register newusername password
 8       send file                                   sendfile thanhhao /Users/mpxt2/bk/computerNetwork/Ass/demoFileTranfer/a.txt
-9       recv file                                   recvfile admin 2051 ( cmd - fromuser - sizefile *ignore size*)
+9       recv file                                   recvfile admin 2051 filename ( cmd - fromuser - sizefile *ignore size*)
 */
 
 public class CmdMessage {

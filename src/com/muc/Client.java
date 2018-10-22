@@ -113,7 +113,8 @@ public class Client {
                     if(cmd.equalsIgnoreCase("recv")){
                         handleMessage(line);
                     } else if(cmd.equalsIgnoreCase("recvfile")) {
-                        handleSendFile(tokens[1],tokens[2],Integer.parseInt(tokens[3]));
+                        String fileName = line.split("\\s", 4)[3];
+                        handleSendFile(tokens[1],fileName,Integer.parseInt(tokens[2]));
                     }
                     else {
                         handleServerMessage(line);
