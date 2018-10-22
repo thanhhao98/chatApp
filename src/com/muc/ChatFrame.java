@@ -67,21 +67,27 @@ public class ChatFrame extends javax.swing.JFrame {
         ConnectFrame.client.addFileListener(new FileListener()  {
             @Override
             public void onRevFile(String revFrom,String nameFile,int sizeFile) throws IOException {
+                ConnectFrame.client.sendFlag = true;
                 String msg = revFrom + " sent you a file named '" + nameFile + "'. Do you wanna save it?";
                 if (JOptionPane.showConfirmDialog(null, msg, "MESSAGE", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     // yes option
                     JFileChooser fileChooser = new JFileChooser();
                     fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                    fileChooser.showDialog(null, "Select Folder");
-                    file = fileChooser.getSelectedFile();
-                    File pathToFile = new File(file, nameFile);
-                    String pathSave = pathToFile.getPath();
-                    ConnectFrame.client.saveFileRev(pathSave,sizeFile);
-                    jTextArea1.append("You saved a file named '" + nameFile + "' from " + revFrom + " under " + pathSave + "\n");
+                    int result = fileChooser.showDialog(null, "Select Folder");
+                    if (result == JFileChooser.APPROVE_OPTION) {
+                        file = fileChooser.getSelectedFile();
+                        File pathToFile = new File(file, nameFile);
+                        String pathSave = pathToFile.getPath();
+                        ConnectFrame.client.saveFileRev(pathSave,sizeFile);
+                        jTextArea1.append("You saved a file named '" + nameFile + "' from " + revFrom + " under " + pathSave + "\n");
+                    } else if (result == JFileChooser.CANCEL_OPTION) {
+                        jTextArea1.append("You declined a file named '" + nameFile + "' from " + revFrom + "\n");
+                    }
                 } else {
                     // no option
                     jTextArea1.append("You declined a file named '" + nameFile + "' from " + revFrom + "\n");
                 }
+                ConnectFrame.client.sendFlag = false;
             }
         });
         
@@ -353,8 +359,6 @@ public class ChatFrame extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         if (ConnectFrame.client.toClient != null){
-            ConnectFrame.client.sendFlag = true;
-            System.out.println(ConnectFrame.client.sendFlag);
             String msg = jTextField2.getText();
             String cmd = "sendfile " + ConnectFrame.client.toClient + " " + msg;
             try {
@@ -365,7 +369,6 @@ public class ChatFrame extends javax.swing.JFrame {
             }
             jTextField2.setText("");
             jButton4.setEnabled(false);
-            ConnectFrame.client.sendFlag = false;
         }
         else {
             jButton4.setEnabled(false);

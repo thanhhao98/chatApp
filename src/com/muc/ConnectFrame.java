@@ -361,8 +361,7 @@ public class ConnectFrame extends javax.swing.JFrame {
                         }
                         if (client.toClient == null) flag = false;
                         if (flag) {
-                            offMsg = client.toClient + " is now offline\n";
-                            ChatFrame.jTextArea1.append(offMsg);
+                            ChatFrame.jTextArea1.append("Pm someone!\n");
                             client.toClient = null;
                         }
                     }
