@@ -346,23 +346,25 @@ public class ConnectFrame extends javax.swing.JFrame {
             public void run() {
                 // whatever you need to do every 2 seconds
                 if (cfUp){
-                    try {
-                        client.sendCmd("listonline");
-                    } catch (IOException ex) {
-                        Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    boolean flag = true;
-                    for (int i=0; i<ChatFrame.onlineClientList.getSize(); i++){
-                        if (ChatFrame.onlineClientList.getElementAt(i).equals(client.toClient)){
-                            flag = false;
-                            break;
+                    if (!client.sendFlag){
+                        try {
+                            client.sendCmd("listonline");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    }
-                    if (client.toClient == null) flag = false;
-                    if (flag) {
-                        offMsg = client.toClient + " is now offline\n";
-                        ChatFrame.jTextArea1.append(offMsg);
-                        client.toClient = null;
+                        boolean flag = true;
+                        for (int i=0; i<ChatFrame.onlineClientList.getSize(); i++){
+                            if (ChatFrame.onlineClientList.getElementAt(i).equals(client.toClient)){
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if (client.toClient == null) flag = false;
+                        if (flag) {
+                            offMsg = client.toClient + " is now offline\n";
+                            ChatFrame.jTextArea1.append(offMsg);
+                            client.toClient = null;
+                        }
                     }
                 }
             }

@@ -19,6 +19,7 @@ public class Client {
     private  ArrayList<FileListener> fileListeners = new ArrayList<>();
     
     public static String toClient;
+    public static boolean sendFlag = false;
 
     public Client(String serverName, int serverPort){
         this.serverName = serverName;
@@ -71,6 +72,7 @@ public class Client {
         } while(bytesRead >0);
         this.bufferedOutputStream.write(mybytearray, 0 , sizeFile);
         this.bufferedOutputStream.flush();
+        this.fileOutputStream.close();
         System.out.println("Rev file successfully");
     }
 
