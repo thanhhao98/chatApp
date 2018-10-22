@@ -71,34 +71,31 @@ public class ServerWorker extends Thread {
 
 
     private void handleFileSend(String usernameRev, String pathFile) throws IOException {
-        try{
-            boolean sendSuccess = false;
-            DataClient revClient = new DataClient(usernameRev,null);
-            ArrayList<ServerWorker> workerList = getWorkerList();
-            File myFile = new File (pathFile);
+        boolean sendSuccess = false;
+        DataClient revClient = new DataClient(usernameRev,null);
+        ArrayList<ServerWorker> workerList = getWorkerList();
+        File myFile = new File (pathFile);
+        if(myFile.exists()) {
             String filename = myFile.getName();
-            String msg = "recvfile " + this.client.getUsername() + " " + filename +  " " + myFile.length() + "\n";
-            System.out.print(msg);
-            for (ServerWorker worker: workerList){
-                if(!revClient.equals(this.getClient()) && revClient.equals(worker.getClient())){
-                    System.out.println(msg);
+            String msg = "recvfile " + this.client.getUsername() + " " + filename + " " + myFile.length() + "\n";
+            for (ServerWorker worker : workerList) {
+                if (!revClient.equals(this.getClient()) && revClient.equals(worker.getClient())) {
                     worker.send(msg);
-                    byte [] mybytearray  = new byte [(int)myFile.length()];
+                    byte[] mybytearray = new byte[(int) myFile.length()];
                     worker.fileInputStream = new FileInputStream(myFile);
                     worker.bufferedInputStream = new BufferedInputStream(worker.fileInputStream);
-                    worker.bufferedInputStream.read(mybytearray,0,mybytearray.length);
-                    worker.outputStream.write(mybytearray,0,mybytearray.length);
+                    worker.bufferedInputStream.read(mybytearray, 0, mybytearray.length);
+                    worker.outputStream.write(mybytearray, 0, mybytearray.length);
                     worker.outputStream.flush();
                     sendSuccess = true;
                     this.sendSuccessMessage();
                 }
             }
-            if(!sendSuccess){
+            if (!sendSuccess) {
                 this.sendErrorMessage();
             }
-        } catch (FileNotFoundException e){
+        } else {
             this.sendErrorMessage();
-            return;
         }
     }
 
