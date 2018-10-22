@@ -20,7 +20,7 @@ public class Client {
     
     public static String toClient;
     public static boolean sendFlag = false;
-
+    
     public Client(String serverName, int serverPort){
         this.serverName = serverName;
         this.serverPort = serverPort;
