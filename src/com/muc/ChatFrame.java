@@ -63,6 +63,31 @@ public class ChatFrame extends javax.swing.JFrame {
                 jTextArea1.append("From " + fromClient + ": " + body + "\n");
             }
         });
+        
+        ConnectFrame.client.addFileListener(new FileListener()  {
+            @Override
+            public void onRevFile(String revFrom,String nameFile,int sizeFile) throws IOException {
+                String msg = revFrom + " sent you a file named '" + nameFile + "'. Do you wanna save it?";
+                if (JOptionPane.showConfirmDialog(null, msg, "MESSAGE", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    // yes option
+                    //String pathSave = "/home/oz/Downloads/saved/"+nameFile;
+                    
+                    JFileChooser fileChooser = new JFileChooser();
+                    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                    fileChooser.showDialog(null, "Select Folder");
+                    file = fileChooser.getSelectedFile();
+                    String pathSave = file.getPath() + "/" + nameFile;
+                 
+                    
+                    ConnectFrame.client.saveFileRev(pathSave,sizeFile);
+                    jTextArea1.append("You saved a file named '" + nameFile + "' from " + revFrom + " under " + pathSave + "\n");
+                } else {
+                    // no option
+                    jTextArea1.append("You declined a file named '" + nameFile + "' from " + revFrom + "\n");
+                }
+            }
+        });
+        
         initComponents();
         this.setTitle("StudyChat");
     }
@@ -323,6 +348,8 @@ public class ChatFrame extends javax.swing.JFrame {
             jButton3.setEnabled(false);
             jTextField2.setEnabled(false);
             jButton4.setEnabled(false);
+            final JPanel panel = new JPanel();
+            JOptionPane.showMessageDialog(panel, "You have to chat with someone in order to send file :)", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 

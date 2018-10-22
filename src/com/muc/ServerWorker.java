@@ -87,6 +87,7 @@ public class ServerWorker extends Thread {
                     worker.bufferedInputStream.read(mybytearray, 0, mybytearray.length);
                     worker.outputStream.write(mybytearray, 0, mybytearray.length);
                     worker.outputStream.flush();
+                    worker.fileInputStream.close();
                     sendSuccess = true;
                     this.sendSuccessMessage();
                 }

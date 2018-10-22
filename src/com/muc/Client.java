@@ -65,6 +65,7 @@ public class Client {
         this.serverIn.read(mybytearray, 0, sizeFile);
         this.bufferedOutputStream.write(mybytearray, 0 , sizeFile);
         this.bufferedOutputStream.flush();
+        this.fileOutputStream.close();
         System.out.println("Rev file successfully");
     }
 
