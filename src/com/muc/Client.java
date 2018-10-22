@@ -62,7 +62,13 @@ public class Client {
         byte [] mybytearray  = new byte [sizeFile];
         this.fileOutputStream = new FileOutputStream(pathSave);
         this.bufferedOutputStream = new BufferedOutputStream(this.fileOutputStream);
-        this.serverIn.read(mybytearray, 0, sizeFile);
+        int bytesRead = this.serverIn.read(mybytearray, 0, sizeFile);
+        int current = bytesRead;
+        do {
+            System.out.println("Rev file running... with bytesRead " + bytesRead + " current " + current);
+            bytesRead = this.serverIn.read(mybytearray, current, (sizeFile-current));
+            if(bytesRead > 0) current += bytesRead;
+        } while(bytesRead >0);
         this.bufferedOutputStream.write(mybytearray, 0 , sizeFile);
         this.bufferedOutputStream.flush();
         System.out.println("Rev file successfully");
