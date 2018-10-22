@@ -346,7 +346,6 @@ public class ConnectFrame extends javax.swing.JFrame {
             public void run() {
                 // whatever you need to do every 2 seconds
                 if (cfUp){
-                    System.out.println(client.sendFlag);
                     if (!client.sendFlag){
                         try {
                             client.sendCmd("listonline");
