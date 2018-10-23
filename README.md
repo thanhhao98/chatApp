@@ -72,5 +72,3 @@ Go to /src/com/muc :
     
 
 (You should use some ide such as netbean or intellij for support running)
-
-Assignment_1
