@@ -329,22 +329,26 @@ public class ChatFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (ConnectFrame.client.toClient != null){
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.showDialog(this, "Select File");
+            int result = fileChooser.showDialog(this, "Select File");
             file = fileChooser.getSelectedFile();
+            if (result == JFileChooser.APPROVE_OPTION) {
+                if(file != null){
+                    if(!file.getName().isEmpty()){
+                        jButton4.setEnabled(true); String str;
 
-            if(file != null){
-                if(!file.getName().isEmpty()){
-                    jButton4.setEnabled(true); String str;
-
-                    if(jTextField2.getText().length() > 30){
-                        String t = file.getPath();
-                        str = t.substring(0, 20) + " [...] " + t.substring(t.length() - 20, t.length());
+                        if(jTextField2.getText().length() > 30){
+                            String t = file.getPath();
+                            str = t.substring(0, 20) + " [...] " + t.substring(t.length() - 20, t.length());
+                        }
+                        else{
+                            str = file.getPath();
+                        }
+                        jTextField2.setText(str);
                     }
-                    else{
-                        str = file.getPath();
-                    }
-                    jTextField2.setText(str);
                 }
+            } else if (result == JFileChooser.CANCEL_OPTION) {
+                jTextField2.setText("");
+                jButton4.setEnabled(false);
             }
         }
         else {
