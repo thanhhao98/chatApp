@@ -4,10 +4,6 @@
     <list default="true" id="0b72345a-294b-448c-87ff-03134962d564" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/chatApp/com/muc/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/chatApp/com/muc/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/muc/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/muc/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/muc/ConnectFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/muc/ConnectFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/muc/DataClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/muc/DataClient.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,7 +34,7 @@
           <entry key="form" value="1" />
           <entry key="iml" value="1" />
           <entry key="java" value="24" />
-          <entry key="md" value="1" />
+          <entry key="md" value="2" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
@@ -47,21 +43,21 @@
           <entry key="GUI_DESIGNER_FORM" value="1" />
           <entry key="IDEA_MODULE" value="1" />
           <entry key="JAVA" value="24" />
-          <entry key="Markdown" value="1" />
+          <entry key="Markdown" value="2" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="java" value="14424" />
-          <entry key="md" value="629" />
+          <entry key="md" value="678" />
           <entry key="xml" value="78" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="14424" />
-          <entry key="Markdown" value="629" />
+          <entry key="Markdown" value="678" />
           <entry key="XML" value="78" />
         </counts>
       </usages-collector>
@@ -102,10 +98,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/muc/CmdMessage.java">
+        <entry file="file://$PROJECT_DIR$/src/com/muc/ServerMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" selection-start-line="20" selection-end-line="28" selection-end-column="123" />
+            <state>
+              <caret column="16" selection-start-column="16" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -114,19 +110,10 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="495">
-                <caret line="33" column="14" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
+              <first_editor relative-caret-position="573">
+                <caret line="71" column="4" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
               </first_editor>
               <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/muc/ServerMain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="16" selection-start-column="16" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -300,13 +287,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="muc" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="chatApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chatApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="muc" type="462c0819:PsiDirectoryNode" />
-              <item name="CmdMessage.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -318,7 +298,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540283481602" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540283731857" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -403,12 +383,12 @@
       <workItem from="1539659841567" duration="17756000" />
       <workItem from="1539703934402" duration="31506000" />
       <workItem from="1540049583309" duration="17371000" />
-      <workItem from="1540279865719" duration="3528000" />
+      <workItem from="1540279865719" duration="3932000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75807000" />
+    <option name="totallyTimeSpent" value="76211000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -432,12 +412,12 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32985386" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2867347" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2867347" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32959184" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32959184" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32959184" />
       <window_info anchor="bottom" id="Tool Output" order="8" weight="0.32959184" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
@@ -567,13 +547,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/muc/ServerMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="16" selection-start-column="16" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/muc/FileListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -633,13 +606,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/muc/CmdMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" selection-start-line="20" selection-end-line="28" selection-end-column="123" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/muc/DataClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -647,11 +613,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/muc/CmdMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" selection-start-line="20" selection-end-line="28" selection-end-column="123" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/muc/ServerMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="16" selection-start-column="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="495">
-            <caret line="33" column="14" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
+          <first_editor relative-caret-position="573">
+            <caret line="71" column="4" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
           </first_editor>
           <second_editor />
         </state>
