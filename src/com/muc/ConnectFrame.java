@@ -216,7 +216,7 @@ public class ConnectFrame extends javax.swing.JFrame {
                 ChatFrame cf = new ChatFrame();
                 cf.setVisible(true);
                 setVisible(false);
-                
+
                 cfUp = true;
             }
         } catch (IOException ex) {
