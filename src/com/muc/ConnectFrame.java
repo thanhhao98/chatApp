@@ -209,6 +209,10 @@ public class ConnectFrame extends javax.swing.JFrame {
         username = jTextField3.getText();
         password = String.valueOf(jPasswordField1.getPassword());
         final JPanel panel1 = new JPanel();
+        actionJButton2ActionPerformed(panel1);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void actionJButton2ActionPerformed(JPanel panel1) {
         try {
             if (!client.login(username, password)){
                 JOptionPane.showMessageDialog(panel1, "Wrong username or password", "Error", JOptionPane.ERROR_MESSAGE);
@@ -222,7 +226,7 @@ public class ConnectFrame extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -265,46 +269,21 @@ public class ConnectFrame extends javax.swing.JFrame {
 
     private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyPressed
         // TODO add your handling code here:
+        actionJTextField3KeyPressed(evt);
+    }//GEN-LAST:event_jTextField3KeyPressed
+
+    private void actionJTextField3KeyPressed(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             username = jTextField3.getText();
             password = String.valueOf(jPasswordField1.getPassword());
             final JPanel panel1 = new JPanel();
-            try {
-                if (!client.login(username, password)){
-                    JOptionPane.showMessageDialog(panel1, "Wrong username or password", "Error", JOptionPane.ERROR_MESSAGE);
-                } else{
-                    ChatFrame cf = new ChatFrame();
-                    cf.setVisible(true);
-                    setVisible(false);
-
-                    cfUp = true;
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            actionJButton2ActionPerformed(panel1);
         }
-    }//GEN-LAST:event_jTextField3KeyPressed
+    }
 
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            username = jTextField3.getText();
-            password = String.valueOf(jPasswordField1.getPassword());
-            final JPanel panel1 = new JPanel();
-            try {
-                if (!client.login(username, password)){
-                    JOptionPane.showMessageDialog(panel1, "Wrong username or password", "Error", JOptionPane.ERROR_MESSAGE);
-                } else{
-                    ChatFrame cf = new ChatFrame();
-                    cf.setVisible(true);
-                    setVisible(false);
-
-                    cfUp = true;
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(ConnectFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        actionJTextField3KeyPressed(evt);
     }//GEN-LAST:event_jPasswordField1KeyPressed
 
     /**

@@ -14,7 +14,7 @@ import org.w3c.dom.*;
 
 public class DataClient {
     // setup path of datafile
-    private final static String pathDataFile = "src/com/muc/Data.xml";
+    private final static String pathDataFile = "src/com/muc/Data.xml"; //You should modify it
     private String username=null;
     private String password=null;
     private String id=null;

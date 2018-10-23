@@ -26,39 +26,6 @@ public class Client {
         this.serverPort = serverPort;
     }
 
-    public static void main(String[] args) throws IOException {
-        Client client = new Client("localhost", 8890);
-        client.addMessageListener(new MessageListener()  {
-            @Override
-            public void onMessage(String fromClient, String body){
-                System.out.println("You got a message from " + fromClient + " :" + body);
-            }
-        });
-        client.addServerListener(new ServerListener() {
-            @Override
-            public void onRespond(String Respond){
-                System.out.println(Respond);
-            }
-        });
-        client.addFileListener(new FileListener() {
-            @Override
-            public void onRevFile(String revFrom,String nameFile,int sizeFile) throws IOException {
-                String pathSave = "/Users/mpxt2/bk/computerNetwork/Ass/demoFileTranfer/"+nameFile;
-                client.saveFileRev(pathSave,sizeFile);
-            }
-        });
-        if (!client.connect()) {
-            System.err.println("Connnect fail");
-        } else {
-            System.out.println("Connect successfully");
-            if(client.login("thanhhao","977463")){
-                System.out.println("login successfully");
-            } else {
-                System.out.println("error");
-            }
-        }
-    }
-
     public void saveFileRev(String pathSave,int sizeFile) throws IOException {
         byte [] mybytearray  = new byte [sizeFile];
         this.fileOutputStream = new FileOutputStream(pathSave);
