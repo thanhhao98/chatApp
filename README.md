@@ -1,70 +1,70 @@
 # chatApp 
 
-##1/ List protocal comunication between client and server
-###*    login:
+## 1/List protocal comunication between client and server
+### *login:
 
             login username password
             
-###*       send msg:
+### *send msg:
 
             send username  this is message
             
             
-###*       recive msg:
+### *recive msg:
 
 
             recv username    this is message
             
             
-###*       get list user active:  
+### *get list user active:  
 
             get listActive
             
             
-###*       logut: 
+### *logut: 
 
     
             logout
             
             
-###*       quit:  
+### *quit:  
 
                 
             quit
             
             
-###*       register:  
+### *register:  
 
 
             register newusername password
             
             
-###*       send file:             
+### *send file:             
 
 
             sendfile thanhhao /Users/mpxt2/bk/computerNetwork/Ass/demoFileTranfer/a.txt
             
             
-###*       recv file: 
+### *recv file: 
 
 
             recvfile admin filename 2051 ( cmd - fromuser - sizefile *ignore size*)
             
             
-##2/ Running decription
-###* Complie:
+## 2/Running decription
+### *Complie:
 Go to /src/com/muc :
 
     javac *.java
 
 (Should modify path of Data.xml in DataClient.java)
-###* Server: 
+### *Server: 
 
 
     javac ServerMain
     
     
-###* ChatClient:
+### *ChatClient:
 
 
     javac ConnectFrame
