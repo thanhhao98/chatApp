@@ -3,7 +3,9 @@ This is an hybrid chat application (P2P and client-server combined) we wrote for
 You can chat or send files with it :)
 
 ## Demo
+Connecting and logging in
 ![picture](img/connect.png)
+Chatting
 ![picture](img/chat.png)
 
 
