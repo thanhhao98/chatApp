@@ -2,11 +2,14 @@ package com.muc;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.Date;
 
 public class ServerWorker extends Thread {
-    private Thread socketChecking;
+    private long lastContact;
     private final Socket clientSocket;
     private final Server server;
     private OutputStream outputStream;
@@ -29,33 +32,10 @@ public class ServerWorker extends Thread {
         }
     }
 
-    private void handleCheckActiveSocket(ServerWorker worker) {
-        worker.socketChecking = new Thread(() -> {
-            while(true) {
-                if(worker.login) {
-                    try {
-                        worker.send("checking\n");
-                    } catch (IOException e) {
-                        worker.server.removeWorker(worker);
-                        worker.socketChecking.stop();
-                    }
-                }
-                try {
-                    sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        });
-        worker.socketChecking.start();
-    }
-
     private void handleClientSocket() throws IOException, InterruptedException {
         InputStream inputStream = clientSocket.getInputStream();
         this.outputStream = clientSocket.getOutputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        handleCheckActiveSocket(this);
         String line;
         while((line = reader.readLine())!= null){
             String[] tokens = line.split("\\s");
@@ -96,7 +76,6 @@ public class ServerWorker extends Thread {
 
 
     private void handleFileSend(String usernameRev, String pathFile) throws IOException, InterruptedException {
-        this.socketChecking.suspend();
         boolean sendSuccess = false;
         DataClient revClient = new DataClient(usernameRev,null);
         ArrayList<ServerWorker> workerList = getWorkerList();
@@ -106,7 +85,6 @@ public class ServerWorker extends Thread {
             String msg = "recvfile " + this.client.getUsername() + " " + myFile.length() + " "  + filename + "\n";
             for (ServerWorker worker : workerList) {
                 if (!revClient.equals(this.getClient()) && revClient.equals(worker.getClient())) {
-                    System.out.println(msg);
                     worker.send(msg);
                     byte[] mybytearray = new byte[(int) myFile.length()];
                     worker.fileInputStream = new FileInputStream(myFile);
@@ -125,7 +103,6 @@ public class ServerWorker extends Thread {
         } else {
             this.sendErrorMessage();
         }
-        this.socketChecking.resume();
     }
 
 
@@ -166,20 +143,28 @@ public class ServerWorker extends Thread {
     }
 
     private void handleListOnline() throws IOException {
+        long now = this.lastContact = System.currentTimeMillis();
         ArrayList<ServerWorker> workerList = getWorkerList();
         ArrayList<String> listUserOnline = new ArrayList<>();
         for(ServerWorker worker: workerList ) {
-            listUserOnline.add(worker.client.getUsername());
+            if(now - worker.lastContact<10000) {
+                listUserOnline.add(worker.client.getUsername());
+            }
         }
         String onlMsg2 = "listonline " + String.join(",",listUserOnline) + "\n";
         this.send(onlMsg2);
     }
 
-    private void handleLogout() throws IOException {
-        ArrayList<ServerWorker> workerList = getWorkerList();
-        this.sendSuccessMessage();
-        this.server.removeWorker(this);
-        this.login = false;
+    private void handleLogout(){
+        try {
+            this.server.removeWorker(this);
+            this.send("logout\n");
+            this.login = false;
+        } catch (IOException e) {
+            this.server.removeWorker(this);
+            this.login = false;
+            this.stop();
+        }
     }
 
     private ArrayList<ServerWorker> getWorkerList() {
@@ -195,7 +180,6 @@ public class ServerWorker extends Thread {
                     for(ServerWorker worker: listWorker){
                         if(this.client.equals(worker.getClient())){
                             worker.handleLogout();
-                            worker.send("logout\n");
                         }
                     }
                 } catch(ConcurrentModificationException e) {

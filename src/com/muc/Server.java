@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Queue;
 
 public class Server extends Thread {
     private final int serverPort;
-    private ArrayList<ServerWorker> workerList = new ArrayList<>();
+    private volatile ArrayList<ServerWorker> workerList = new ArrayList<>();
 
     public Server(int port) {
         this.serverPort = port;
@@ -33,7 +34,7 @@ public class Server extends Thread {
         this.workerList.add(worker);
     }
 
-    public ArrayList<ServerWorker> getWorkerList(){
+    public synchronized ArrayList<ServerWorker> getWorkerList(){
         return workerList;
     }
 
