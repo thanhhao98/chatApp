@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -31,6 +33,7 @@ public class ConnectFrame extends javax.swing.JFrame {
     public static boolean connected = false;
     public static String offMsg;
 //    public static ConnectFrame c;
+    public static Map<String, String> emo = new HashMap<String, String>();
     /**
      * Creates new form ConnectFrame
      */
@@ -290,6 +293,16 @@ public class ConnectFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]){
+        emo.put(":)", "☺");
+        emo.put(":(", "☹");
+        emo.put("<3", "♡");
+        emo.put(":shrug:", "¯\\_(ツ)_/¯");
+        emo.put(":le:", "(͡° ͜ʖ ͡°)");
+        emo.put(":cheer:", "(づ｡◕‿‿◕｡)づ");
+        emo.put(":disapprove:", "ಠ_ಠ");
+        emo.put(":music:", "♪");
+        
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

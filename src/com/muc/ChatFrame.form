@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JScrollPane" name="jScrollPane3">
       <AuxValues>
@@ -113,7 +113,7 @@
   <SubComponents>
     <Component class="javax.swing.JTextField" name="jTextField1">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Write something :)"/>
+        <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;Emoticons list &lt;br&gt;&#xa;:)&#x9;&#x9;&#x263a; &lt;br&gt;&#xa;:(&#x9;&#x9;&#x2639; &lt;br&gt;&#xa;&amp;lt;3&#x9;&#x9;&#x2661;&lt;br&gt;&#xa; :shrug:&#x9;&#x9;&#xaf;\u005c\u005c_(&#x30c4;)_/&#xaf;&quot;)&lt;br&gt;&#xa;:le:&#x9;&#x9;(&#x361;&#xb0; &#x35c;&#x296; &#x361;&#xb0;) &lt;br&gt;&#xa;:cheer:&#x9;&#x9;(&#x3065;&#xff61;&#x25d5;&#x203f;&#x203f;&#x25d5;&#xff61;)&#x3065;&lt;br&gt;&#xa;:disapprove:&#x9;&#xca0;_&#xca0;&quot;)&lt;br&gt;&#xa;:music:&#x9;&#x9;&#x266a;&lt;br&gt;&#xa;&lt;/html&gt;" containsInvalidXMLChars="true"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
           <Color id="Text Cursor"/>
         </Property>
@@ -145,7 +145,7 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="&quot;Welcome &quot; + ConnectFrame.username + &quot; !\n&quot;" type="code"/>
+              <Connection code="&quot;Welcome &quot; + ConnectFrame.username + &quot; !\n&quot; + &quot;Hovering the chat box to show emo list\n&quot;" type="code"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Default Cursor"/>

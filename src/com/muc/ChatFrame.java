@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -28,7 +29,7 @@ public class ChatFrame extends javax.swing.JFrame {
      */
     public static DefaultListModel onlineClientList;
     public File file;
-    
+
     public ChatFrame() throws IOException {
         ChatFrame.onlineClientList = new DefaultListModel();
         ConnectFrame.client.addServerListener(new ServerListener() {
@@ -60,6 +61,10 @@ public class ChatFrame extends javax.swing.JFrame {
         ConnectFrame.client.addMessageListener(new MessageListener()  {
             @Override
             public void onMessage(String fromClient, String body){
+//                String replace = body;
+//                for (Map.Entry<String, String> entry : ConnectFrame.emo.entrySet()) {
+//                    body = body.replace(entry.getKey(), entry.getValue());
+//                }
                 jTextArea1.append("From " + fromClient + ": " + body + "\n");
             }
         });
@@ -133,7 +138,7 @@ public class ChatFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setToolTipText("Write something :)");
+        jTextField1.setToolTipText("<html>\nEmoticons list <br>\n:)\t\t☺ <br>\n:(\t\t☹ <br>\n&lt;3\t\t♡<br>\n :shrug:\t\t¯\\\\_(ツ)_/¯\")<br>\n:le:\t\t(͡° ͜ʖ ͡°) <br>\n:cheer:\t\t(づ｡◕‿‿◕｡)づ<br>\n:disapprove:\tಠ_ಠ\")<br>\n:music:\t\t♪<br>\n</html>");
         jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextField1.setName(""); // NOI18N
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -153,7 +158,7 @@ public class ChatFrame extends javax.swing.JFrame {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Welcome " + ConnectFrame.username + " !\n");
+        jTextArea1.setText("Welcome " + ConnectFrame.username + " !\n" + "Hovering the chat box to show emo list\n");
         jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextArea1.setFocusable(false);
         jScrollPane1.setViewportView(jTextArea1);
@@ -264,6 +269,9 @@ public class ChatFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (ConnectFrame.client.toClient != null){
             String msg = jTextField1.getText();
+            for (Map.Entry<String, String> entry : ConnectFrame.emo.entrySet()) {
+                msg = msg.replace(entry.getKey(), entry.getValue());
+            }
             String cmd = "send " + ConnectFrame.client.toClient + " " + msg;
             try {
                 ConnectFrame.client.sendCmd(cmd);
@@ -300,6 +308,9 @@ public class ChatFrame extends javax.swing.JFrame {
         if (ConnectFrame.client.toClient != null){
             if (evt.getKeyCode() == KeyEvent.VK_ENTER){
                 String msg = jTextField1.getText();
+                for (Map.Entry<String, String> entry : ConnectFrame.emo.entrySet()) {
+                    msg = msg.replace(entry.getKey(), entry.getValue());
+                }
                 String cmd = "send " + ConnectFrame.client.toClient + " " + msg;
                 try {
                     ConnectFrame.client.sendCmd(cmd);
