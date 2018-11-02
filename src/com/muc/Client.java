@@ -1,5 +1,11 @@
 package com.muc;
 
+/**
+ *
+ * @author Thanhhao
+ */
+
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;

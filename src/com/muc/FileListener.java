@@ -1,8 +1,13 @@
 package com.muc;
 
-import java.io.FileNotFoundException;
+/**
+ *
+ * @author Thanhhao
+ */
+
+
 import java.io.IOException;
 
 public interface FileListener {
-    public void onRevFile(String revFrom,String nameFile,int sizeFile) throws IOException;
+    void onRevFile(String revFrom,String nameFile,int sizeFile) throws IOException;
 }

@@ -1,12 +1,15 @@
 package com.muc;
 
+/**
+ *
+ * @author Thanhhao
+ */
+
+
 import java.io.*;
 import java.net.Socket;
-import java.net.SocketException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
-import java.util.Date;
 
 public class ServerWorker extends Thread {
     private long lastContact;

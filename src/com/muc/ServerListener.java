@@ -1,5 +1,11 @@
 package com.muc;
 
+/**
+ *
+ * @author Thanhhao
+ */
+
+
 public interface ServerListener {
-    public void onRespond(String respond);
+    void onRespond(String respond);
 }
