@@ -2,11 +2,11 @@ package com.muc;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 public class ServerWorker extends Thread {
+    private Thread socketChecking;
     private final Socket clientSocket;
     private final Server server;
     private OutputStream outputStream;
@@ -24,15 +24,38 @@ public class ServerWorker extends Thread {
     public void run(){
         try {
             handleClientSocket();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    private void handleClientSocket() throws IOException {
+    private void handleCheckActiveSocket(ServerWorker worker) {
+        worker.socketChecking = new Thread(() -> {
+            while(true) {
+                if(worker.login) {
+                    try {
+                        worker.send("checking\n");
+                    } catch (IOException e) {
+                        worker.server.removeWorker(worker);
+                        worker.socketChecking.stop();
+                    }
+                }
+                try {
+                    sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+        worker.socketChecking.start();
+    }
+
+    private void handleClientSocket() throws IOException, InterruptedException {
         InputStream inputStream = clientSocket.getInputStream();
         this.outputStream = clientSocket.getOutputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        handleCheckActiveSocket(this);
         String line;
         while((line = reader.readLine())!= null){
             String[] tokens = line.split("\\s");
@@ -72,7 +95,8 @@ public class ServerWorker extends Thread {
     }
 
 
-    private void handleFileSend(String usernameRev, String pathFile) throws IOException {
+    private void handleFileSend(String usernameRev, String pathFile) throws IOException, InterruptedException {
+        this.socketChecking.suspend();
         boolean sendSuccess = false;
         DataClient revClient = new DataClient(usernameRev,null);
         ArrayList<ServerWorker> workerList = getWorkerList();
@@ -101,6 +125,7 @@ public class ServerWorker extends Thread {
         } else {
             this.sendErrorMessage();
         }
+        this.socketChecking.resume();
     }
 
 
