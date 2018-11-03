@@ -54,7 +54,7 @@ You can chat or send files with it :)
             recvfile admin filename 2051 ( cmd - fromuser - sizefile *ignore size*)
             
             
-## 2/Running decription
+## 2/Running description
 ### *Complie:
 Go to /src/com/muc :
 
