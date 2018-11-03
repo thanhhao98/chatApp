@@ -1,3 +1,4 @@
 out/
-.idea/*
-
+.idea/
+chatApp.iml
+.DS_Store

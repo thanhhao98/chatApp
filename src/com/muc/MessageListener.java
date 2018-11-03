@@ -1,5 +1,11 @@
 package com.muc;
 
+/**
+ *
+ * @author Thanhhao
+ */
+
+
 public interface MessageListener {
-    public void onMessage(String fromClient, String body);
+    void onMessage(String fromClient, String body);
 }

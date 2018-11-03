@@ -1,5 +1,11 @@
 package com.muc;
 
+/**
+ *
+ * @author Thanhhao
+ */
+
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -82,8 +88,6 @@ public class Client {
                     } else if(cmd.equalsIgnoreCase("recvfile")) {
                         String fileName = line.split("\\s", 4)[3];
                         handleSendFile(tokens[1],fileName,Integer.parseInt(tokens[2]));
-                    } else if(cmd.equalsIgnoreCase("checking")) {
-                        continue;
                     } else {
                         handleServerMessage(line);
                     }
