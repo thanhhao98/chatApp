@@ -2,11 +2,6 @@
 This is an hybrid chat application (P2P and client-server combined) we wrote for our Computer Network assignment.
 You can chat or send files with it :)
 
-## Demo
-![picture](img/connect.png)
-
-![picture](img/chat.png)
-
 
 ## 1/List protocal comunication between client and server
 ### *login:
